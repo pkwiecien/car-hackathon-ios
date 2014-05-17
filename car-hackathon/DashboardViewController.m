@@ -8,6 +8,8 @@
 
 #import "DashboardViewController.h"
 #import "SettingsViewController.h"
+#import "UtilityManager.h"
+#import "PlayerViewController.h"
 
 @interface DashboardViewController ()
 
@@ -24,22 +26,35 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Carbeats";
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:26/256 green:26/256 blue:26/256 alpha:1];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     
     UIButton *button = [[UIButton alloc] init];
     button.frame=CGRectMake(0,0,30,30);
-    [button setBackgroundImage:[UIImage imageNamed: @"SettingsIcon"] forState:UIControlStateNormal];
+    UIImage *settingsImage = [UtilityManager colorImage:[UIImage imageNamed: @"SettingsIcon"] withColor:[UIColor whiteColor]];
+    [button setBackgroundImage:settingsImage forState:UIControlStateNormal];
     [button addTarget:self action:@selector(rightBarButtonItemPressed) forControlEvents:UIControlEventTouchUpInside];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:button];
+    self.navigationController.navigationBarHidden = NO;
+    self.topLeftView.layer.cornerRadius = 4.0;
+    self.topRightView.layer.cornerRadius = 4.0;
+    self.bottomLeftView.layer.cornerRadius = 4.0;
+    self.bottomRightView.layer.cornerRadius = 4.0;
 }
 
 -(void)rightBarButtonItemPressed {
     SettingsViewController *settingsVC = [[SettingsViewController alloc] init];
     [self.navigationController pushViewController:settingsVC animated:YES];
+}
+
+- (IBAction)mainButtonPressed:(id)sender {
+    PlayerViewController *playerVC = [[PlayerViewController alloc] init];
+    [self.navigationController pushViewController:playerVC animated:YES];
 }
 
 @end
