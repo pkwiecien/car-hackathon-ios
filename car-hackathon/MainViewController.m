@@ -63,7 +63,10 @@
         [[AppDelegate rdioInstance] authorizeUsingAccessToken:savedToken fromController:self];
     }
     
-    self.loginView = [[FBLoginView alloc] initWithFrame:CGRectMake(0, 200, 300, 100)];
+    self.loginView = [[FBLoginView alloc] init];// initWithFrame:CGRectMake(60, 400, 200, 100)];
+    self.loginView.frame = CGRectOffset(self.loginView.frame, (self.view.center.x - (self.loginView.frame.size.width / 2)), 5);
+    self.loginView.frame = CGRectMake((self.view.center.x - (self.loginView.frame.size.width / 2)),400, self.loginView.frame.size.width, self.loginView.frame.size.height);
+
     self.loginView.readPermissions = @[@"user_likes", @"user_about_me", @"user_actions.music", @"user_activities"];
     self.loginView.delegate = self;
     [self.view addSubview:self.loginView];
@@ -369,6 +372,9 @@
     }];
     
     NSLog(@"Genres analyze completed %@", self.likedGenres);
+    //here go to next screen
+    DashboardViewController *dashVC = [[DashboardViewController alloc] init];
+    [self.navigationController pushViewController:dashVC animated:YES];
 }
 
 - (void) GNResultReady:(GNSearchResult*)result {
