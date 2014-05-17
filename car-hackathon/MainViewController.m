@@ -103,23 +103,36 @@
     
     // first intro page
     EAIntroPage *page1 = [EAIntroPage page];
-    page1.title = @"Hello world";
-    page1.titlePositionY = 220;
-    page1.desc = @"this is sampe description";
-    page1.descPositionY = 200;
+    page1.title = @"LOGO HERE";
+    page1.titlePositionY = 250;
+    page1.titleFont = [UIFont systemFontOfSize:FONT_BIG];
+    //page1.desc = @"this is sampe description";
+    //page1.descPositionY = 200;
     page1.titleIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CircleBlue"]];
     page1.titleIconPositionY = 100;
+    page1.bgImage = [UIImage imageNamed:@"phone_welcome_first.png"];
     
     // second intro page
     EAIntroPage *page2 = [EAIntroPage page];
-    page2.title = @"This is page 2";
-    page2.titlePositionY = 220;
-    page2.desc = @"this is sampel description";
+    page2.desc = @"Play the music fitting your mood and driving style";
+    page2.descFont = [UIFont systemFontOfSize:FONT_MEDIUM];
     page2.descPositionY = 200;
     page2.titleIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CircleBlue"]];
     page2.titleIconPositionY = 100;
+    page2.bgImage = [UIImage imageNamed:@"phone_welcome_second.png"];
     
-    EAIntroView *intro = [[EAIntroView alloc] initWithFrame:self.view.bounds andPages:@[page1, page2]];
+    
+    // third intro page
+    EAIntroPage *page3 = [EAIntroPage page];
+    page3.desc = @"... also with weather and traffic conditions!";
+    page3.descFont = [UIFont systemFontOfSize:FONT_MEDIUM];
+    page3.descPositionY = 200;
+    page3.titleIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CircleBlue"]];
+    page3.titleIconPositionY = 100;
+    page3.bgImage = [UIImage imageNamed:@"phone_welcome_third.png"];
+    
+    
+    EAIntroView *intro = [[EAIntroView alloc] initWithFrame:self.view.bounds andPages:@[page1, page2, page3]];
     intro.delegate = self;
     [intro showInView:self.view animateDuration:0.0];
 }
