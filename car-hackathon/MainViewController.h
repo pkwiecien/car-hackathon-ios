@@ -18,6 +18,7 @@
 #import <GracenoteMusicID/GNOperationStatusChanged.h>
 #import "EAIntroView.h"
 
+#import "Constants.h" 
 @protocol DeezerAudioPlayerDelegate;
 @protocol DeezerSessionConnectionDelegate;
 @protocol DeezerSessionRequestDelegate;

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1D612F681FCF41F29035E767 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD1D03EA7D644AA398EBF195 /* libPods.a */; };
+		5D8E6F31192818E10086F989 /* GracenoteMusicID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D8E6F30192818E10086F989 /* GracenoteMusicID.framework */; };
 		E50E9E061927962F008B4F58 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E50E9E041927962F008B4F58 /* MainViewController.m */; };
 		E50E9E071927962F008B4F58 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50E9E051927962F008B4F58 /* MainViewController.xib */; };
 		E50E9E0D1927E175008B4F58 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = E50E9E0C1927E175008B4F58 /* Settings.m */; };
@@ -24,7 +25,6 @@
 		E50E9E261927F1D5008B4F58 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E50E9E251927F1D5008B4F58 /* libxml2.dylib */; };
 		E50E9E2A1927F1EE008B4F58 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50E9E291927F1EE008B4F58 /* MediaPlayer.framework */; };
 		E50E9E2C1927F1F6008B4F58 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50E9E2B1927F1F6008B4F58 /* AVFoundation.framework */; };
-		E50E9E311927F2C4008B4F58 /* GracenoteMusicID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50E9E2F1927F251008B4F58 /* GracenoteMusicID.framework */; };
 		E50E9E331927F31F008B4F58 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50E9E321927F31F008B4F58 /* AdSupport.framework */; };
 		E5BAA1E41926B55800A4020C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5BAA1E31926B55800A4020C /* Foundation.framework */; };
 		E5BAA1E61926B55800A4020C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5BAA1E51926B55800A4020C /* CoreGraphics.framework */; };
@@ -52,6 +52,8 @@
 
 /* Begin PBXFileReference section */
 		31D0666764BF4523A57B5C0B /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		5D8E6F30192818E10086F989 /* GracenoteMusicID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GracenoteMusicID.framework; path = ../Downloads/GN_Music_SDK_iOS_3_3_0_14/GracenoteMusicID.framework; sourceTree = "<group>"; };
+		5DB06CA419281EFD00D83B6B /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		BD1D03EA7D644AA398EBF195 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E50E9DFC1927952E008B4F58 /* libPods-Deezer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Deezer.a"; path = "Pods/build/Release-iphoneos/libPods-Deezer.a"; sourceTree = "<group>"; };
 		E50E9E031927962F008B4F58 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
@@ -76,8 +78,6 @@
 		E50E9E271927F1DD008B4F58 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		E50E9E291927F1EE008B4F58 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		E50E9E2B1927F1F6008B4F58 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		E50E9E2D1927F21E008B4F58 /* GN_Music_SDK_iOS_3_3_0_14.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; name = GN_Music_SDK_iOS_3_3_0_14.zip; path = ../../../../../Downloads/GN_Music_SDK_iOS_3_3_0_14.zip; sourceTree = "<group>"; };
-		E50E9E2F1927F251008B4F58 /* GracenoteMusicID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GracenoteMusicID.framework; path = ../../../../../Downloads/abc/GracenoteMusicID.framework; sourceTree = "<group>"; };
 		E50E9E321927F31F008B4F58 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		E5BAA1E01926B55800A4020C /* Carbeats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Carbeats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5BAA1E31926B55800A4020C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -102,8 +102,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D8E6F31192818E10086F989 /* GracenoteMusicID.framework in Frameworks */,
 				E50E9E331927F31F008B4F58 /* AdSupport.framework in Frameworks */,
-				E50E9E311927F2C4008B4F58 /* GracenoteMusicID.framework in Frameworks */,
 				E50E9E2C1927F1F6008B4F58 /* AVFoundation.framework in Frameworks */,
 				E50E9E2A1927F1EE008B4F58 /* MediaPlayer.framework in Frameworks */,
 				E50E9E261927F1D5008B4F58 /* libxml2.dylib in Frameworks */,
@@ -169,9 +169,8 @@
 		E5BAA1E21926B55800A4020C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5D8E6F30192818E10086F989 /* GracenoteMusicID.framework */,
 				E50E9E321927F31F008B4F58 /* AdSupport.framework */,
-				E50E9E2F1927F251008B4F58 /* GracenoteMusicID.framework */,
-				E50E9E2D1927F21E008B4F58 /* GN_Music_SDK_iOS_3_3_0_14.zip */,
 				E50E9E2B1927F1F6008B4F58 /* AVFoundation.framework */,
 				E50E9E291927F1EE008B4F58 /* MediaPlayer.framework */,
 				E50E9E271927F1DD008B4F58 /* QuartzCore.framework */,
@@ -202,6 +201,7 @@
 				E5BF2F461926B65500FC42BD /* Model */,
 				E5BAA1EA1926B55800A4020C /* Supporting Files */,
 				E5BF2F451926B64E00FC42BD /* View Controllers */,
+				5DB06CA419281EFD00D83B6B /* Constants.h */,
 			);
 			path = "car-hackathon";
 			sourceTree = "<group>";
@@ -515,6 +515,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/pawel/Downloads/abc,
+					/Users/siminuk/Downloads/GN_Music_SDK_iOS_3_3_0_14,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "car-hackathon/car-hackathon-Prefix.pch";
@@ -561,6 +562,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/pawel/Downloads/abc,
+					/Users/siminuk/Downloads/GN_Music_SDK_iOS_3_3_0_14,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "car-hackathon/car-hackathon-Prefix.pch";
