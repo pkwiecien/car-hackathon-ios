@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E5BAA1DF1926B55800A4020C"
-               BuildableName = "car-hackathon.app"
-               BlueprintName = "car-hackathon"
+               BuildableName = "Carbeats.app"
+               BlueprintName = "Carbeats"
                ReferencedContainer = "container:car-hackathon.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -43,8 +43,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E5BAA1DF1926B55800A4020C"
-            BuildableName = "car-hackathon.app"
-            BlueprintName = "car-hackathon"
+            BuildableName = "Carbeats.app"
+            BlueprintName = "Carbeats"
             ReferencedContainer = "container:car-hackathon.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -62,8 +62,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E5BAA1DF1926B55800A4020C"
-            BuildableName = "car-hackathon.app"
-            BlueprintName = "car-hackathon"
+            BuildableName = "Carbeats.app"
+            BlueprintName = "Carbeats"
             ReferencedContainer = "container:car-hackathon.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -80,8 +80,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E5BAA1DF1926B55800A4020C"
-            BuildableName = "car-hackathon.app"
-            BlueprintName = "car-hackathon"
+            BuildableName = "Carbeats.app"
+            BlueprintName = "Carbeats"
             ReferencedContainer = "container:car-hackathon.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

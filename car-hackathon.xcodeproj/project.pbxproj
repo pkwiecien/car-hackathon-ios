@@ -8,6 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		1D612F681FCF41F29035E767 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD1D03EA7D644AA398EBF195 /* libPods.a */; };
+		E50E9E061927962F008B4F58 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E50E9E041927962F008B4F58 /* MainViewController.m */; };
+		E50E9E071927962F008B4F58 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50E9E051927962F008B4F58 /* MainViewController.xib */; };
+		E50E9E0D1927E175008B4F58 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = E50E9E0C1927E175008B4F58 /* Settings.m */; };
+		E50E9E0F1927E374008B4F58 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50E9E0E1927E374008B4F58 /* CFNetwork.framework */; };
+		E50E9E111927E37B008B4F58 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50E9E101927E37B008B4F58 /* CoreMedia.framework */; };
+		E50E9E131927E383008B4F58 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50E9E121927E383008B4F58 /* SystemConfiguration.framework */; };
+		E50E9E151927E390008B4F58 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50E9E141927E390008B4F58 /* AudioToolbox.framework */; };
+		E50E9E171927E396008B4F58 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50E9E161927E396008B4F58 /* Security.framework */; };
+		E50E9E1A1927E5E8008B4F58 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = E50E9E191927E5E8008B4F58 /* Reachability.m */; };
+		E50E9E1F1927E7CE008B4F58 /* RdioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E50E9E1D1927E7CE008B4F58 /* RdioViewController.m */; };
+		E50E9E201927E7CE008B4F58 /* RdioViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50E9E1E1927E7CE008B4F58 /* RdioViewController.xib */; };
+		E50E9E221927F1C0008B4F58 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E50E9E211927F1C0008B4F58 /* libsqlite3.dylib */; };
+		E50E9E241927F1CB008B4F58 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E50E9E231927F1CB008B4F58 /* libstdc++.dylib */; };
+		E50E9E261927F1D5008B4F58 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E50E9E251927F1D5008B4F58 /* libxml2.dylib */; };
+		E50E9E2A1927F1EE008B4F58 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50E9E291927F1EE008B4F58 /* MediaPlayer.framework */; };
+		E50E9E2C1927F1F6008B4F58 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50E9E2B1927F1F6008B4F58 /* AVFoundation.framework */; };
+		E50E9E311927F2C4008B4F58 /* GracenoteMusicID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50E9E2F1927F251008B4F58 /* GracenoteMusicID.framework */; };
+		E50E9E331927F31F008B4F58 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50E9E321927F31F008B4F58 /* AdSupport.framework */; };
 		E5BAA1E41926B55800A4020C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5BAA1E31926B55800A4020C /* Foundation.framework */; };
 		E5BAA1E61926B55800A4020C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5BAA1E51926B55800A4020C /* CoreGraphics.framework */; };
 		E5BAA1E81926B55800A4020C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5BAA1E71926B55800A4020C /* UIKit.framework */; };
@@ -20,8 +38,6 @@
 		E5BAA1FF1926B55800A4020C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5BAA1E71926B55800A4020C /* UIKit.framework */; };
 		E5BAA2071926B55800A4020C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E5BAA2051926B55800A4020C /* InfoPlist.strings */; };
 		E5BAA2091926B55800A4020C /* car_hackathonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E5BAA2081926B55800A4020C /* car_hackathonTests.m */; };
-		E5BF2F4A1926B66B00FC42BD /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5BF2F481926B66B00FC42BD /* MainViewController.m */; };
-		E5BF2F4B1926B66B00FC42BD /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5BF2F491926B66B00FC42BD /* MainViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +53,33 @@
 /* Begin PBXFileReference section */
 		31D0666764BF4523A57B5C0B /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		BD1D03EA7D644AA398EBF195 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		E5BAA1E01926B55800A4020C /* car-hackathon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "car-hackathon.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E50E9DFC1927952E008B4F58 /* libPods-Deezer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Deezer.a"; path = "Pods/build/Release-iphoneos/libPods-Deezer.a"; sourceTree = "<group>"; };
+		E50E9E031927962F008B4F58 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		E50E9E041927962F008B4F58 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		E50E9E051927962F008B4F58 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
+		E50E9E0B1927E175008B4F58 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
+		E50E9E0C1927E175008B4F58 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
+		E50E9E0E1927E374008B4F58 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		E50E9E101927E37B008B4F58 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		E50E9E121927E383008B4F58 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		E50E9E141927E390008B4F58 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		E50E9E161927E396008B4F58 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		E50E9E181927E5E8008B4F58 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		E50E9E191927E5E8008B4F58 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		E50E9E1B1927E689008B4F58 /* RDQConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RDQConstants.h; sourceTree = "<group>"; };
+		E50E9E1C1927E7CE008B4F58 /* RdioViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RdioViewController.h; sourceTree = "<group>"; };
+		E50E9E1D1927E7CE008B4F58 /* RdioViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RdioViewController.m; sourceTree = "<group>"; };
+		E50E9E1E1927E7CE008B4F58 /* RdioViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RdioViewController.xib; sourceTree = "<group>"; };
+		E50E9E211927F1C0008B4F58 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		E50E9E231927F1CB008B4F58 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
+		E50E9E251927F1D5008B4F58 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		E50E9E271927F1DD008B4F58 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		E50E9E291927F1EE008B4F58 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		E50E9E2B1927F1F6008B4F58 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		E50E9E2D1927F21E008B4F58 /* GN_Music_SDK_iOS_3_3_0_14.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; name = GN_Music_SDK_iOS_3_3_0_14.zip; path = ../../../../../Downloads/GN_Music_SDK_iOS_3_3_0_14.zip; sourceTree = "<group>"; };
+		E50E9E2F1927F251008B4F58 /* GracenoteMusicID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GracenoteMusicID.framework; path = ../../../../../Downloads/abc/GracenoteMusicID.framework; sourceTree = "<group>"; };
+		E50E9E321927F31F008B4F58 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		E5BAA1E01926B55800A4020C /* Carbeats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Carbeats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5BAA1E31926B55800A4020C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E5BAA1E51926B55800A4020C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		E5BAA1E71926B55800A4020C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -53,9 +95,6 @@
 		E5BAA2041926B55800A4020C /* car-hackathonTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "car-hackathonTests-Info.plist"; sourceTree = "<group>"; };
 		E5BAA2061926B55800A4020C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E5BAA2081926B55800A4020C /* car_hackathonTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = car_hackathonTests.m; sourceTree = "<group>"; };
-		E5BF2F471926B66B00FC42BD /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
-		E5BF2F481926B66B00FC42BD /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
-		E5BF2F491926B66B00FC42BD /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +102,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E50E9E331927F31F008B4F58 /* AdSupport.framework in Frameworks */,
+				E50E9E311927F2C4008B4F58 /* GracenoteMusicID.framework in Frameworks */,
+				E50E9E2C1927F1F6008B4F58 /* AVFoundation.framework in Frameworks */,
+				E50E9E2A1927F1EE008B4F58 /* MediaPlayer.framework in Frameworks */,
+				E50E9E261927F1D5008B4F58 /* libxml2.dylib in Frameworks */,
+				E50E9E241927F1CB008B4F58 /* libstdc++.dylib in Frameworks */,
+				E50E9E221927F1C0008B4F58 /* libsqlite3.dylib in Frameworks */,
+				E50E9E171927E396008B4F58 /* Security.framework in Frameworks */,
+				E50E9E151927E390008B4F58 /* AudioToolbox.framework in Frameworks */,
+				E50E9E131927E383008B4F58 /* SystemConfiguration.framework in Frameworks */,
+				E50E9E111927E37B008B4F58 /* CoreMedia.framework in Frameworks */,
+				E50E9E0F1927E374008B4F58 /* CFNetwork.framework in Frameworks */,
 				E5BAA1E61926B55800A4020C /* CoreGraphics.framework in Frameworks */,
 				E5BAA1E81926B55800A4020C /* UIKit.framework in Frameworks */,
 				E5BAA1E41926B55800A4020C /* Foundation.framework in Frameworks */,
@@ -83,6 +134,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E50E9E6F1928012A008B4F58 /* Rdio */ = {
+			isa = PBXGroup;
+			children = (
+				E50E9E1B1927E689008B4F58 /* RDQConstants.h */,
+				E50E9E181927E5E8008B4F58 /* Reachability.h */,
+				E50E9E191927E5E8008B4F58 /* Reachability.m */,
+				E50E9E0B1927E175008B4F58 /* Settings.h */,
+				E50E9E0C1927E175008B4F58 /* Settings.m */,
+			);
+			name = Rdio;
+			sourceTree = "<group>";
+		};
 		E5BAA1D71926B55800A4020C = {
 			isa = PBXGroup;
 			children = (
@@ -97,7 +160,7 @@
 		E5BAA1E11926B55800A4020C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E5BAA1E01926B55800A4020C /* car-hackathon.app */,
+				E5BAA1E01926B55800A4020C /* Carbeats.app */,
 				E5BAA1FB1926B55800A4020C /* car-hackathonTests.xctest */,
 			);
 			name = Products;
@@ -106,6 +169,21 @@
 		E5BAA1E21926B55800A4020C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E50E9E321927F31F008B4F58 /* AdSupport.framework */,
+				E50E9E2F1927F251008B4F58 /* GracenoteMusicID.framework */,
+				E50E9E2D1927F21E008B4F58 /* GN_Music_SDK_iOS_3_3_0_14.zip */,
+				E50E9E2B1927F1F6008B4F58 /* AVFoundation.framework */,
+				E50E9E291927F1EE008B4F58 /* MediaPlayer.framework */,
+				E50E9E271927F1DD008B4F58 /* QuartzCore.framework */,
+				E50E9E251927F1D5008B4F58 /* libxml2.dylib */,
+				E50E9E231927F1CB008B4F58 /* libstdc++.dylib */,
+				E50E9E211927F1C0008B4F58 /* libsqlite3.dylib */,
+				E50E9E161927E396008B4F58 /* Security.framework */,
+				E50E9E141927E390008B4F58 /* AudioToolbox.framework */,
+				E50E9E121927E383008B4F58 /* SystemConfiguration.framework */,
+				E50E9E101927E37B008B4F58 /* CoreMedia.framework */,
+				E50E9E0E1927E374008B4F58 /* CFNetwork.framework */,
+				E50E9DFC1927952E008B4F58 /* libPods-Deezer.a */,
 				E5BAA1E31926B55800A4020C /* Foundation.framework */,
 				E5BAA1E51926B55800A4020C /* CoreGraphics.framework */,
 				E5BAA1E71926B55800A4020C /* UIKit.framework */,
@@ -160,9 +238,13 @@
 		E5BF2F451926B64E00FC42BD /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				E5BF2F471926B66B00FC42BD /* MainViewController.h */,
-				E5BF2F481926B66B00FC42BD /* MainViewController.m */,
-				E5BF2F491926B66B00FC42BD /* MainViewController.xib */,
+				E50E9E6F1928012A008B4F58 /* Rdio */,
+				E50E9E031927962F008B4F58 /* MainViewController.h */,
+				E50E9E041927962F008B4F58 /* MainViewController.m */,
+				E50E9E051927962F008B4F58 /* MainViewController.xib */,
+				E50E9E1C1927E7CE008B4F58 /* RdioViewController.h */,
+				E50E9E1D1927E7CE008B4F58 /* RdioViewController.m */,
+				E50E9E1E1927E7CE008B4F58 /* RdioViewController.xib */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -177,9 +259,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E5BAA1DF1926B55800A4020C /* car-hackathon */ = {
+		E5BAA1DF1926B55800A4020C /* Carbeats */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E5BAA20C1926B55800A4020C /* Build configuration list for PBXNativeTarget "car-hackathon" */;
+			buildConfigurationList = E5BAA20C1926B55800A4020C /* Build configuration list for PBXNativeTarget "Carbeats" */;
 			buildPhases = (
 				4F567D928FA24328B4B0889D /* Check Pods Manifest.lock */,
 				E5BAA1DC1926B55800A4020C /* Sources */,
@@ -191,9 +273,9 @@
 			);
 			dependencies = (
 			);
-			name = "car-hackathon";
+			name = Carbeats;
 			productName = "car-hackathon";
-			productReference = E5BAA1E01926B55800A4020C /* car-hackathon.app */;
+			productReference = E5BAA1E01926B55800A4020C /* Carbeats.app */;
 			productType = "com.apple.product-type.application";
 		};
 		E5BAA1FA1926B55800A4020C /* car-hackathonTests */ = {
@@ -240,7 +322,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E5BAA1DF1926B55800A4020C /* car-hackathon */,
+				E5BAA1DF1926B55800A4020C /* Carbeats */,
 				E5BAA1FA1926B55800A4020C /* car-hackathonTests */,
 			);
 		};
@@ -251,8 +333,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E50E9E201927E7CE008B4F58 /* RdioViewController.xib in Resources */,
 				E5BAA1EE1926B55800A4020C /* InfoPlist.strings in Resources */,
-				E5BF2F4B1926B66B00FC42BD /* MainViewController.xib in Resources */,
+				E50E9E071927962F008B4F58 /* MainViewController.xib in Resources */,
 				E5BAA1F61926B55800A4020C /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -306,8 +389,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5BAA1F41926B55800A4020C /* AppDelegate.m in Sources */,
-				E5BF2F4A1926B66B00FC42BD /* MainViewController.m in Sources */,
+				E50E9E0D1927E175008B4F58 /* Settings.m in Sources */,
+				E50E9E1F1927E7CE008B4F58 /* RdioViewController.m in Sources */,
+				E50E9E061927962F008B4F58 /* MainViewController.m in Sources */,
 				E5BAA1F01926B55800A4020C /* main.m in Sources */,
+				E50E9E1A1927E5E8008B4F58 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,7 +410,7 @@
 /* Begin PBXTargetDependency section */
 		E5BAA2011926B55800A4020C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = E5BAA1DF1926B55800A4020C /* car-hackathon */;
+			target = E5BAA1DF1926B55800A4020C /* Carbeats */;
 			targetProxy = E5BAA2001926B55800A4020C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -423,12 +509,44 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 31D0666764BF4523A57B5C0B /* Pods.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/pawel/Downloads/abc,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "car-hackathon/car-hackathon-Prefix.pch";
 				INFOPLIST_FILE = "car-hackathon/car-hackathon-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/build/Release-iphoneos",
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-framework",
+					AudioToolBox,
+					"-framework",
+					AudioToolbox,
+					"-framework",
+					CFNetwork,
+					"-framework",
+					CoreAudio,
+					"-framework",
+					CoreGraphics,
+					"-framework",
+					CoreMedia,
+					"-framework",
+					Rdio,
+					"-framework",
+					Security,
+					"-framework",
+					SystemConfiguration,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -437,12 +555,43 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 31D0666764BF4523A57B5C0B /* Pods.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/pawel/Downloads/abc,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "car-hackathon/car-hackathon-Prefix.pch";
 				INFOPLIST_FILE = "car-hackathon/car-hackathon-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/build/Release-iphoneos",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-framework",
+					AudioToolBox,
+					"-framework",
+					AudioToolbox,
+					"-framework",
+					CFNetwork,
+					"-framework",
+					CoreAudio,
+					"-framework",
+					CoreGraphics,
+					"-framework",
+					CoreMedia,
+					"-framework",
+					Rdio,
+					"-framework",
+					Security,
+					"-framework",
+					SystemConfiguration,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -499,7 +648,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E5BAA20C1926B55800A4020C /* Build configuration list for PBXNativeTarget "car-hackathon" */ = {
+		E5BAA20C1926B55800A4020C /* Build configuration list for PBXNativeTarget "Carbeats" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E5BAA20D1926B55800A4020C /* Debug */,

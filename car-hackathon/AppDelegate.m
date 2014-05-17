@@ -11,12 +11,24 @@
 
 @implementation AppDelegate
 
+@synthesize rdio;
+
++ (Rdio *)rdioInstance {
+    return [(AppDelegate*)[[UIApplication sharedApplication] delegate] rdio];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-
+    
+    /**
+     * Create an instance of the Rdio class with our Rdio API key and secret.
+     */
+    rdio = [[Rdio alloc] initWithConsumerKey:@"vtqfspagvumhj4b92ur5ur2f" andSecret:@"htP6XGc53c" delegate:nil];
+    
     MainViewController *mainVC = [[MainViewController alloc] init];
-    self.window.rootViewController = mainVC;
+    UINavigationController *navContoller = [[UINavigationController alloc] initWithRootViewController:mainVC];
+    self.window.rootViewController = navContoller;
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
@@ -48,6 +60,14 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    
+    // Call FBAppCall's handleOpenURL:sourceApplication to handle Facebook app responses
+    BOOL wasHandled = [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
+    
+    return wasHandled;
 }
 
 @end

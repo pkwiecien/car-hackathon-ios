@@ -7,9 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Rdio/Rdio.h>
+#import <FacebookSDK/FBAppCall.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate> {
+      Rdio *rdio;
+}
 
 @property (strong, nonatomic) UIWindow *window;
 
+/**
+ * For easy access to the Rdio object instance from the rest of our application.
+ */
++ (Rdio*)rdioInstance;
+
+@property (readonly) Rdio *rdio;
 @end
