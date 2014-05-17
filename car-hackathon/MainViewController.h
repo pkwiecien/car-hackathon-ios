@@ -16,6 +16,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <GracenoteMusicID/GNSearchResultReady.h>
 #import <GracenoteMusicID/GNOperationStatusChanged.h>
+#import "EAIntroView.h"
 
 @protocol DeezerAudioPlayerDelegate;
 @protocol DeezerSessionConnectionDelegate;
@@ -40,7 +41,7 @@ typedef enum
 } SearchType;
 
 
-@interface MainViewController : UIViewController <RdioDelegate, UIAlertViewDelegate, FBLoginViewDelegate, GNSearchResultReady, GNOperationStatusChanged> {
+@interface MainViewController : UIViewController <RdioDelegate, UIAlertViewDelegate, FBLoginViewDelegate, GNSearchResultReady, GNOperationStatusChanged, EAIntroDelegate> {
     Reachability* netReachable;
     Reachability* hostReachable;
     BOOL hasConnection;
@@ -62,7 +63,6 @@ typedef enum
 - (void)checkNetworkStatus:(NSNotification*)notif;
 - (void)updateUIAfterConnectivityCheck;
 - (void)promptForRdioAuth;
-- (void) reportSearchResults:(NSString*)message results:(NSArray*)results;
 
 - (IBAction)goToRdioButtonPressed:(id)sender;
 

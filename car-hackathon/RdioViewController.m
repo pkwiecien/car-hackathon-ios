@@ -35,7 +35,7 @@
     AudioServicesCreateSystemSoundID(urlRef, &correctSoundID);
     urlRef = CFBundleCopyResourceURL(CFBundleGetMainBundle(), CFSTR("incorrect"), CFSTR("wav"), NULL);
     AudioServicesCreateSystemSoundID(urlRef, &incorrectSoundID);
-
+    self.navigationController.navigationBarHidden = NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -53,8 +53,7 @@
     [[AppDelegate rdioInstance] callAPIMethod:@"search" withParameters:params delegate:self];
 }
 
-#pragma mark -
-#pragma mark RDPlayerDelegate
+#pragma mark - RDPlayerDelegate
 - (void)rdioPlayerChangedFromState:(RDPlayerState)oldState toState:(RDPlayerState)newState {
     NSLog(@"*** Player changed from state: %d toState: %d", oldState, newState);
 }

@@ -21,21 +21,23 @@
 
 @interface MainViewController ()
 
-@property(nonatomic, retain) NSString *MUSIC_LIKE;
-@property(nonatomic, retain) NSMutableArray *bands;
-@property(nonatomic, retain) NSMutableDictionary *likedGenres;
-@property(nonatomic, assign) int artistsTotal;
-@property(nonatomic, assign) int artistsAnalyzed;
+@property (nonatomic, retain) NSString *MUSIC_LIKE;
+@property (nonatomic, retain) NSMutableArray *bands;
+@property (nonatomic, retain) NSMutableDictionary *likedGenres;
+@property (nonatomic, assign) int artistsTotal;
+@property (nonatomic, assign) int artistsAnalyzed;
 
 @end
 
 @implementation MainViewController
 
+@synthesize activityIndicator;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-               
+        
     }
     return self;
 }
@@ -60,7 +62,7 @@
          */
         [[AppDelegate rdioInstance] authorizeUsingAccessToken:savedToken fromController:self];
     }
-
+    
     self.loginView = [[FBLoginView alloc] initWithFrame:CGRectMake(0, 200, 300, 100)];
     self.loginView.readPermissions = @[@"user_likes", @"user_about_me", @"user_actions.music", @"user_activities"];
     self.loginView.delegate = self;
@@ -80,87 +82,14 @@
     
 }
 
-- (void)NetworkStatus:(NSNotification *)notif {
-    [netReachable stopNotifier];
-    [hostReachable stopNotifier];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[AppDelegate rdioInstance] setDelegate:self];
     
-    hasConnection = YES;
-    
-    NetworkStatus netStatus = [netReachable currentReachabilityStatus];
-    switch (netStatus) {
-        case NotReachable:
-            hasConnection = NO;
-            break;
-    }
-    
-    NetworkStatus hostStatus = [hostReachable currentReachabilityStatus];
-    switch (hostStatus) {
-        case NotReachable:
-            hasConnection = NO;
-            break;
-    }
-    [self updateUIAfterConnectivityCheck];
+    self.navigationController.navigationBarHidden = YES;
 }
-
-
-- (void)checkNetworkStatus:(NSNotification *)notif {
-    [netReachable stopNotifier];
-    [hostReachable stopNotifier];
-    
-    hasConnection = YES;
-    
-    NetworkStatus netStatus = [netReachable currentReachabilityStatus];
-    switch (netStatus) {
-        case NotReachable:
-            hasConnection = NO;
-            break;
-    }
-    
-    NetworkStatus hostStatus = [hostReachable currentReachabilityStatus];
-    switch (hostStatus) {
-        case NotReachable:
-            hasConnection = NO;
-            break;
-    }
-    [self updateUIAfterConnectivityCheck];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
-- (IBAction)buttonPressed:(id)sender {
-    
- }
-
-
-- (void)deezerDidLogin {
-    }
-
-- (void)searchArtist:(NSString*)artistName {
-}
-
-- (void)bufferProgressChanged:(float)bufferProgress {
-    
-}
-
-- (void)bufferDidFailWithError:(NSError*)error {
-    //    NSLog(@"[Debug][DeezerAudioPlayer] bufferDidFailWithError -> error %@", error);
-}
-
-- (void)trackDurationDidChange:(long)trackDuration {
-    
-}
-
-
 
 - (void) presentLoginModal {
-    /**
-     * Display the login modal so the user can log in.
-     */
     [[AppDelegate rdioInstance] authorizeFromController:self];
 }
 
@@ -169,25 +98,33 @@
     [av show];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    /**
-     * Make sure we are sent delegate messages.
-     */
-    [[AppDelegate rdioInstance] setDelegate:self];
+// show intro
+-(void)viewDidAppear:(BOOL)animated {
     
+    // first intro page
+    EAIntroPage *page1 = [EAIntroPage page];
+    page1.title = @"Hello world";
+    page1.titlePositionY = 220;
+    page1.desc = @"this is sampe description";
+    page1.descPositionY = 200;
+    page1.titleIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CircleBlue"]];
+    page1.titleIconPositionY = 100;
+    
+    // second intro page
+    EAIntroPage *page2 = [EAIntroPage page];
+    page2.title = @"This is page 2";
+    page2.titlePositionY = 220;
+    page2.desc = @"this is sampel description";
+    page2.descPositionY = 200;
+    page2.titleIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CircleBlue"]];
+    page2.titleIconPositionY = 100;
+    
+    EAIntroView *intro = [[EAIntroView alloc] initWithFrame:self.view.bounds andPages:@[page1, page2]];
+    intro.delegate = self;
+    [intro showInView:self.view animateDuration:0.0];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    /**
-     * Don't send us any delegate messages.
-     */
-    [[AppDelegate rdioInstance] setDelegate:nil];
-}
-
-#pragma mark -
-#pragma mark RdioDelegate methods
+#pragma mark - RdioDelegate methods
 /**
  * The user has successfully authorized the application, so we should store the access token
  * and any other information we might want access to later.
@@ -221,8 +158,7 @@
     }
 }
 
-#pragma mark -
-#pragma mark UIAlertViewDelegate
+#pragma mark - UIAlertViewDelegate
 
 - (void) alertView:(UIAlertView*)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (buttonIndex != [alertView cancelButtonIndex]) {
@@ -230,8 +166,7 @@
     }
 }
 
-#pragma mark -
-#pragma mark RdioDelegate
+#pragma mark - RdioDelegate
 - (void)rdioDidAuthorizeUser:(NSDictionary *)user withAccessToken:(NSString *)accessToken {
     [[Settings settings] setUser:[NSString stringWithFormat:@"%@ %@", [user valueForKey:@"firstName"], [user valueForKey:@"lastName"]]];
     [[Settings settings] setAccessToken:accessToken];
@@ -241,13 +176,7 @@
     [activityIndicator stopAnimating];
 }
 
-- (IBAction)goToRdioButtonPressed:(id)sender {
-    RdioViewController *rdioVC = [[RdioViewController alloc] init];
-    [self.navigationController pushViewController:rdioVC animated:YES];
-}
-
-#pragma mark -
-#pragma mark RDAPIRequestDelegate
+#pragma mark - RDAPIRequestDelegate
 /**
  * Our API call has returned successfully.
  * the data parameter can be an NSDictionary, NSArray, or NSData
@@ -264,10 +193,7 @@
     [[[AppDelegate rdioInstance] player] playSource:song];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     RDPlayer *player = [[AppDelegate rdioInstance] player];
     if([keyPath isEqualToString:@"position"]) {
@@ -280,7 +206,7 @@
     }
 }
 
-
+#pragma mark - facebook login methods
 
 // This method will be called when the user information has been fetched
 - (void)loginViewFetchedUserInfo:(FBLoginView *)loginView
@@ -331,63 +257,11 @@
                             trackTitle:nil];
         }
     }
-    NSLog(@"%bands : @", self.bands);
+    NSLog(@"bands : %@", self.bands);
     
     //after getting music likes go one by one and get genres
 }
 
-// Invoked when results from a search operation are ready, or before an operation begins
-- (void) reportSearchResults:(NSString*)message result:(GNSearchResponse*)result
-{
-    NSArray *albumGenres = result.albumGenre;
-    for (GNDescriptor *genreDescriptor in albumGenres) {
-        NSString *genreName = genreDescriptor.itemData;
-        NSString *genreID = genreDescriptor.itemId;
-        NSMutableArray *genreValue;
-        genreValue = [self.likedGenres objectForKey:genreName];
-        if (genreValue == nil) {
-            genreValue = [[NSMutableArray alloc] init];
-            [genreValue addObject:genreID];
-            [genreValue addObject:[NSNumber numberWithInt:1]];
-        } else {
-            int previousLikes = [[genreValue objectAtIndex:1] intValue];
-            previousLikes++;
-            [genreValue removeObjectAtIndex:1];
-            [genreValue addObject:[NSNumber numberWithInt:previousLikes]];
-        }
-        [self.likedGenres setObject:genreValue forKey:genreName];
-        NSLog(@"Genre name: %@", genreName);
-    }
-    
-    self.artistsAnalyzed++;
-    if (self.artistsAnalyzed == self.artistsTotal) {
-        [self genresEvaluationCompleted];
-    }
-}
-
-- (void ) genresEvaluationCompleted {
-    
-    NSArray *orderedKeysArray;
-    
-    orderedKeysArray = [self.likedGenres keysSortedByValueUsingComparator: ^(id obj1, id obj2) {
-        NSMutableArray *arr1 = (NSMutableArray *)obj1;
-        NSMutableArray *arr2 = (NSMutableArray *)obj2;
-        
-        if ([[arr1 objectAtIndex:1] integerValue] < [[arr2 objectAtIndex:1] integerValue]) {
-            
-            return (NSComparisonResult)NSOrderedDescending;
-        }
-        if ([[arr1 objectAtIndex:1] integerValue] > [[arr2 objectAtIndex:1] integerValue]) {
-            
-            return (NSComparisonResult)NSOrderedAscending;
-        }
-        
-        return (NSComparisonResult)NSOrderedSame;
-    }];
-    
-    NSLog(@"Genres analyze completed %@", self.likedGenres);
-    
-}
 // Handle possible errors that can occur during login
 - (void)loginView:(FBLoginView *)loginView handleError:(NSError *)error {
     NSString *alertMessage, *alertTitle;
@@ -431,8 +305,60 @@
     }
 }
 
-- (void) GNResultReady:(GNSearchResult*)result
-{
+#pragma mark - gracenote delegate methods
+
+// Invoked when results from a search operation are ready, or before an operation begins
+- (void) reportSearchResults:(NSString*)message result:(GNSearchResponse*)result {
+    NSArray *albumGenres = result.albumGenre;
+    for (GNDescriptor *genreDescriptor in albumGenres) {
+        NSString *genreName = genreDescriptor.itemData;
+        NSString *genreID = genreDescriptor.itemId;
+        NSMutableArray *genreValue;
+        genreValue = [self.likedGenres objectForKey:genreName];
+        if (genreValue == nil) {
+            genreValue = [[NSMutableArray alloc] init];
+            [genreValue addObject:genreID];
+            [genreValue addObject:[NSNumber numberWithInt:1]];
+        } else {
+            int previousLikes = [[genreValue objectAtIndex:1] intValue];
+            previousLikes++;
+            [genreValue removeObjectAtIndex:1];
+            [genreValue addObject:[NSNumber numberWithInt:previousLikes]];
+        }
+        [self.likedGenres setObject:genreValue forKey:genreName];
+        NSLog(@"Genre name: %@", genreName);
+    }
+    
+    self.artistsAnalyzed++;
+    if (self.artistsAnalyzed == self.artistsTotal) {
+        [self genresEvaluationCompleted];
+    }
+}
+
+- (void)genresEvaluationCompleted {
+    
+    NSArray *orderedKeysArray;
+    
+    orderedKeysArray = [self.likedGenres keysSortedByValueUsingComparator: ^(id obj1, id obj2) {
+        NSMutableArray *arr1 = (NSMutableArray *)obj1;
+        NSMutableArray *arr2 = (NSMutableArray *)obj2;
+        
+        if ([[arr1 objectAtIndex:1] integerValue] < [[arr2 objectAtIndex:1] integerValue]) {
+            
+            return (NSComparisonResult)NSOrderedDescending;
+        }
+        if ([[arr1 objectAtIndex:1] integerValue] > [[arr2 objectAtIndex:1] integerValue]) {
+            
+            return (NSComparisonResult)NSOrderedAscending;
+        }
+        
+        return (NSComparisonResult)NSOrderedSame;
+    }];
+    
+    NSLog(@"Genres analyze completed %@", self.likedGenres);
+}
+
+- (void) GNResultReady:(GNSearchResult*)result {
 	NSString *statusString = nil;
 	NSArray *responses = nil;
 	
@@ -440,14 +366,13 @@
 		statusString = [NSString stringWithFormat:@"[%d] %@", result.errCode, result.errMessage];
 	} else {
 		if ([result isAnySearchNoMatchStatus]) {
-			statusString = [NSString stringWithFormat:@"%NO_MATCH"];
+			statusString = [NSString stringWithFormat:@"NO_MATCH"];
 		} else {
 			// A search might return 1 best match, or 1 to N responses
 			responses = [result responses];
 			statusString = [NSString stringWithFormat:@"Found %lu", (unsigned long)[responses count]];
 		}
 	}
-    
     
 	//TODO : notify the view controller
     [self reportSearchResults:statusString result:[result bestResponse] ];
@@ -458,9 +383,7 @@
 // An operation that records from the microphone will generate a "recording" status
 // message that indicate the percentage done WRT the amount of audio needed to
 // generate an MIDStream fingerprint.
-
-- (void) GNStatusChanged:(GNStatus*)status
-{
+- (void) GNStatusChanged:(GNStatus*)status {
 	NSString *msg;
     
 	//if (status.status == /*GNStatusEnum*/ LISTENING) {
@@ -472,23 +395,80 @@
 	//[self.viewController setStatus:msg showStatusPrefix:TRUE];
 }
 
-// This method will be defined in the subclass
-
-- (NSString*) operationName
-{
+- (NSString*) operationName {
     return nil;
 }
 
-// This method will be defined in the subclass
-
--(SearchType)searchType
-{
+-(SearchType)searchType {
 	return SearchTypeNone;
 }
 
-- (IBAction)facebookButtonPressed:(id)sender {
+# pragma mark - button actions
+- (IBAction)goToRdioButtonPressed:(id)sender {
+    RdioViewController *rdioVC = [[RdioViewController alloc] init];
+    [self.navigationController pushViewController:rdioVC animated:YES];
 }
 
+#pragma mark - cleanup methods
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[AppDelegate rdioInstance] setDelegate:nil];
+}
+
+
+#pragma mark - rdio utility functions
+
+- (void)NetworkStatus:(NSNotification *)notif {
+    [netReachable stopNotifier];
+    [hostReachable stopNotifier];
+    
+    hasConnection = YES;
+    
+    NetworkStatus netStatus = [netReachable currentReachabilityStatus];
+    switch (netStatus) {
+        case NotReachable:
+            hasConnection = NO;
+            break;
+        default:
+            break;
+    }
+    
+    NetworkStatus hostStatus = [hostReachable currentReachabilityStatus];
+    switch (hostStatus) {
+        case NotReachable:
+            hasConnection = NO;
+            break;
+        default:
+            break;
+    }
+    [self updateUIAfterConnectivityCheck];
+}
+
+
+- (void)checkNetworkStatus:(NSNotification *)notif {
+    [netReachable stopNotifier];
+    [hostReachable stopNotifier];
+    
+    hasConnection = YES;
+    
+    NetworkStatus netStatus = [netReachable currentReachabilityStatus];
+    switch (netStatus) {
+        case NotReachable:
+            hasConnection = NO;
+            break;
+        default: break;
+    }
+    
+    NetworkStatus hostStatus = [hostReachable currentReachabilityStatus];
+    switch (hostStatus) {
+        case NotReachable:
+            hasConnection = NO;
+            break;
+        default: break;
+    }
+    [self updateUIAfterConnectivityCheck];
+}
 
 
 
