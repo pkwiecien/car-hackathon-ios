@@ -66,5 +66,6 @@ typedef enum
 - (void)promptForRdioAuth;
 
 - (IBAction)goToRdioButtonPressed:(id)sender;
+- (IBAction)goToDasboardButtonPressed:(id)sender;
 
 @end

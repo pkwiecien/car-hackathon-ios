@@ -17,7 +17,7 @@
 #import <GracenoteMusicID/GNStatus.h>
 #import <GracenoteMusicID/GNCoverArt.h>
 #import <GracenoteMusicID/GNDescriptor.h>
-
+#import "DashboardViewController.h"
 
 @interface MainViewController ()
 
@@ -420,6 +420,11 @@
 - (IBAction)goToRdioButtonPressed:(id)sender {
     RdioViewController *rdioVC = [[RdioViewController alloc] init];
     [self.navigationController pushViewController:rdioVC animated:YES];
+}
+
+- (IBAction)goToDasboardButtonPressed:(id)sender {
+    DashboardViewController *dashVC = [[DashboardViewController alloc] init];
+    [self.navigationController pushViewController:dashVC animated:YES];
 }
 
 #pragma mark - cleanup methods

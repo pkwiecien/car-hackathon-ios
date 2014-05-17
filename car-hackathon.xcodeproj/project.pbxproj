@@ -184,6 +184,16 @@
 			name = "Settings Cell";
 			sourceTree = "<group>";
 		};
+		E50E9E7D19282187008B4F58 /* Login Screen */ = {
+			isa = PBXGroup;
+			children = (
+				E50E9E031927962F008B4F58 /* MainViewController.h */,
+				E50E9E041927962F008B4F58 /* MainViewController.m */,
+				E50E9E051927962F008B4F58 /* MainViewController.xib */,
+			);
+			name = "Login Screen";
+			sourceTree = "<group>";
+		};
 		E5BAA1D71926B55800A4020C = {
 			isa = PBXGroup;
 			children = (
@@ -276,12 +286,10 @@
 		E5BF2F451926B64E00FC42BD /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				E50E9E7D19282187008B4F58 /* Login Screen */,
 				E50E9E7B19282035008B4F58 /* Dashboard */,
 				E50E9E7A19282027008B4F58 /* Settings  */,
 				E50E9E6F1928012A008B4F58 /* Rdio */,
-				E50E9E031927962F008B4F58 /* MainViewController.h */,
-				E50E9E041927962F008B4F58 /* MainViewController.m */,
-				E50E9E051927962F008B4F58 /* MainViewController.xib */,
 				E50E9E1C1927E7CE008B4F58 /* RdioViewController.h */,
 				E50E9E1D1927E7CE008B4F58 /* RdioViewController.m */,
 				E50E9E1E1927E7CE008B4F58 /* RdioViewController.xib */,
