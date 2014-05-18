@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *safetyIcon;
 @property (weak, nonatomic) IBOutlet UIButton *timeIcon;
 @property (weak, nonatomic) IBOutlet UILabel *speedLimitLabel;
+@property (weak, nonatomic) IBOutlet UILabel *artistLabel;
 
 @property (strong, nonatomic) NSString *artist;
 @property (strong, nonatomic) NSString *song;

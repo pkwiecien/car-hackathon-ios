@@ -35,6 +35,7 @@
     [self.safetyIcon setBackgroundImage:[UtilityManager colorImage:[UIImage imageNamed:@"CautionIcon"] withColor:[UIColor whiteColor]] forState:UIControlStateNormal];
     [self.timeIcon setBackgroundImage:[UtilityManager colorImage:[UIImage imageNamed:@"DaytimeIcon"] withColor:[UIColor whiteColor]] forState:UIControlStateNormal];
     [self.styleIcon setBackgroundImage:[UtilityManager colorImage:[UIImage imageNamed:@"LightningIcon"] withColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+    self.artistLabel.text = self.artist;
 }
 
 - (void)didReceiveMemoryWarning

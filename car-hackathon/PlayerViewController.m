@@ -143,6 +143,9 @@ static int currentTrack;
         Track *newTrack = [[Track alloc] init];
         newTrack.albumUrl = dict[@"results"][0][@"icon400"];
         newTrack.trackId = dict[@"results"][0][@"key"];
+        newTrack.artist = dict[@"results"][0][@"artist"];
+        //newTrack.album = dict[@"results"][0][@"album"];
+
         [self.tracks addObject:newTrack];
     }
 }
@@ -197,9 +200,6 @@ static int currentTrack;
 }
 
 -(void)playCurrentTrack {
-    if (currentTrack >= [self.tracks count]) {
-        currentTrack = 0;
-    }
     Track *newTrack = [self.tracks objectAtIndex:currentTrack];
     [[[AppDelegate rdioInstance] player] playSource:newTrack.trackId];
     NSURL *url = [NSURL URLWithString:newTrack.albumUrl];
@@ -208,6 +208,7 @@ static int currentTrack;
 }
 
 -(void)playNextTrack {
+    currentTrack++;
     if (currentTrack >= [self.tracks count]) {
         currentTrack = 0;
     }
@@ -216,7 +217,6 @@ static int currentTrack;
     NSURL *url = [NSURL URLWithString:newTrack.albumUrl];
     NSData *data = [NSData dataWithContentsOfURL:url];
     self.albumCoverImage.image = [[UIImage alloc] initWithData:data];
-    currentTrack++;
 }
 
 -(void)playTrackWithId:(NSString *)trackId {
@@ -249,6 +249,7 @@ static int currentTrack;
     dontStopPlayer = YES;
     detailsViewVisible = YES;
     PlayerDetailsViewController *testVC = [[PlayerDetailsViewController alloc] init];
+    testVC.artist = [[self.tracks objectAtIndex:currentTrack] artist];
     [self presentViewController:testVC animated:YES completion:nil];
 }
 
