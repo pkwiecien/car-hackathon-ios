@@ -19,6 +19,7 @@
     NSArray *genreImageViews;
     NSArray *genreLabels;
     int currentTile;
+    int currentImageCounter;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -76,6 +77,7 @@
     //all the genres are in self.currentContext.genres
     //for each (distinct) genre, get one artist and populate the tiles
     currentTile = 0;
+    currentImageCounter = 0;
     for(id key in self.currentContext.genres) {
         NSString* artist = [self.currentContext.genres objectForKey:key];
         [self fetchAlbumCover:artist];
@@ -158,7 +160,7 @@
 
 - (void)rdioRequest:(RDAPIRequest *)request didLoadData:(id)data {
     
-    if (data != nil && [data objectForKey:@"result"]) {
+    if (data != nil && [data objectForKey:@"results"]) {
         //in this step, the result from the server containing the details about an album is returned
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:data];
         NSString *albumUrl = dict[@"results"][0][@"icon"];
@@ -170,8 +172,11 @@
 - (void) fillEmptyGenreTile: (NSData *)data {
     //depending on the answer from Raza
     //self.albumCoverImage.image = [[UIImage alloc] initWithData:data];
-    UIImageView *currentImageView = [genreImageViews objectAtIndex:currentTile];
+    UIImageView *currentImageView = [genreImageViews objectAtIndex:currentImageCounter];
     currentImageView.image = [[UIImage alloc] initWithData:data];
+    currentImageCounter++;
+    NSLog(@"increase image counter");
+    
 }
 
 @end

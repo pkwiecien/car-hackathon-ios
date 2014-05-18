@@ -18,10 +18,15 @@
 #import <GracenoteMusicID/GNCoverArt.h>
 #import <GracenoteMusicID/GNDescriptor.h>
 #import "DashboardViewController.h"
+#import <AFNetworking/AFHTTPRequestOperationManager.h>
+
+#import "ServerResponse.h"
+
 
 @interface MainViewController ()
 
 @property (nonatomic, retain) NSString *MUSIC_LIKE;
+@property (nonatomic) float WAIT_TIME;
 @property (nonatomic, retain) NSMutableArray *bands;
 @property (nonatomic, retain) NSMutableDictionary *likedGenres;
 @property (nonatomic, assign) int artistsTotal;
@@ -29,7 +34,9 @@
 @property (nonatomic, assign) BOOL musicRequested;
 @end
 
-@implementation MainViewController
+@implementation MainViewController {
+    AFHTTPRequestOperationManager *httpManager;
+}
 
 @synthesize activityIndicator;
 
@@ -67,19 +74,20 @@
     self.loginView.frame = CGRectOffset(self.loginView.frame, (self.view.center.x - (self.loginView.frame.size.width / 2)), 5);
     self.loginView.frame = CGRectMake((self.view.center.x - (self.loginView.frame.size.width / 2)),400, self.loginView.frame.size.width, self.loginView.frame.size.height);
     
-    
-
+    //permissions for FB
     self.loginView.readPermissions = @[@"user_likes", @"user_about_me", @"user_actions.music", @"user_activities"];
     self.loginView.delegate = self;
     [self.view addSubview:self.loginView];
     
+    //constants
     self.MUSIC_LIKE = @"Musician/band";
-    self.bands = [[NSMutableArray alloc] init];
-	// Do any additional setup after loading the view, typically from a nib.
+    self.WAIT_TIME = 5.0f;
     
     //the GN stuff
     self.config = [GNConfig init:@"11493376-2587743DFEA005B0AC22F8C40DB8A4AB"];
     
+    //initializations
+    self.bands = [[NSMutableArray alloc] init];
     //used for getting music preferences; in the beginning, not fetched
     self.musicRequested = false;
     //hide the activity indicator
@@ -90,8 +98,21 @@
     self.artistsTotal = 0;
     self.artistsAnalyzed = 0;
     
+    [self initHTTPManager];
 }
 
+-(void) initHTTPManager {
+    httpManager = [AFHTTPRequestOperationManager manager];
+    //httpManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    AFJSONRequestSerializer *requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    [requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    
+    httpManager.requestSerializer = requestSerializer;
+    httpManager.responseSerializer = [AFJSONResponseSerializer serializer];
+}
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [[AppDelegate rdioInstance] setDelegate:self];
@@ -285,8 +306,7 @@
                                   NSArray *myLikes = (NSArray*)[result data];
                                   //after getting FB data, after 10 seconds go to next no matter what
                                   [self performSelector:@selector(genresEvaluationCompleted)
-                                             withObject:nil afterDelay:10.0f];
-                                  //NSLog(@"user likes: %@", myLikes);
+                                             withObject:nil afterDelay:self.WAIT_TIME];
                                   [self saveMusicLikes:myLikes];
                               } else {
                                   // An error occurred, we need to handle the error
@@ -300,7 +320,7 @@
     self.artistsTotal = [likes count];
     for (NSDictionary *musicLike in likes){
         if ([[musicLike objectForKey:@"category"] isEqualToString:self.MUSIC_LIKE]) {
-            NSLog(@"%@", [musicLike objectForKey:@"name"]);
+            //NSLog(@"%@", [musicLike objectForKey:@"name"]);
             NSString *likedArtist = [musicLike objectForKey:@"name"];
             [self.bands addObject:likedArtist];
             
@@ -311,7 +331,7 @@
                             trackTitle:nil];
         }
     }
-    NSLog(@"bands : %@", self.bands);
+    //NSLog(@"bands : %@", self.bands);
     
     //after getting music likes go one by one and get genres
 }
@@ -383,7 +403,7 @@
         NSLog(@"Genre name: %@", genreName);
     }
     self.artistsAnalyzed++;
-    NSLog(@"Artists analyzed %d", self.artistsAnalyzed);
+    //NSLog(@"Artists analyzed %d", self.artistsAnalyzed);
     //WHEN GOT HALF OF THE GENRES, IT GOES TO NEXT SCREEN
     if (self.artistsAnalyzed == self.artistsTotal) {
         [self genresEvaluationCompleted];
@@ -391,14 +411,63 @@
 }
 
 - (void)genresEvaluationCompleted {
-    
-    
-    
     NSLog(@"Genres analyze completed %@", self.likedGenres);
+    [self fetchGNRecommendations];
     //here go to next screen
-    DashboardViewController *dashVC = [[DashboardViewController alloc] init];
-    dashVC.genrePreferences = self.likedGenres;
-    [self.navigationController pushViewController:dashVC animated:YES];
+    //when the evaluation of genres from FB is finished, send to Raza the object containing the IDs and then go to next screen
+//    DashboardViewController *dashVC = [[DashboardViewController alloc] init];
+//    dashVC.genrePreferences = self.likedGenres;
+//    [self.navigationController pushViewController:dashVC animated:YES];
+    
+    
+}
+
+- (void) fetchGNRecommendations {
+    
+    NSArray *orderedKeysArray;
+    
+    orderedKeysArray = [self.likedGenres keysSortedByValueUsingComparator: ^(id obj1, id obj2) {
+        NSMutableArray *arr1 = (NSMutableArray *)obj1;
+        NSMutableArray *arr2 = (NSMutableArray *)obj2;
+        
+        if ([[arr1 objectAtIndex:1] integerValue] < [[arr2 objectAtIndex:1] integerValue]) {
+            
+            return (NSComparisonResult)NSOrderedDescending;
+        }
+        if ([[arr1 objectAtIndex:1] integerValue] > [[arr2 objectAtIndex:1] integerValue]) {
+            
+            return (NSComparisonResult)NSOrderedAscending;
+        }
+        
+        return (NSComparisonResult)NSOrderedSame;
+    }];
+
+    
+    NSString *SERVER_URL = @"http://damp-badlands-1259.herokuapp.com/api/v1/users";
+    NSString *GN_URL = @"https://c11493376.web.cddbp.net/webapi/json/1.0/radio/create?client=11493376-2587743DFEA005B0AC22F8C40DB8A4AB&user=263552350177047583-9A591374B87F3A53E1A77FFDA20770A8&seed=mood_65326";
+    NSDictionary *postObject = [[NSMutableDictionary alloc] init];
+    [postObject setValue:orderedKeysArray forKeyPath:@"genres"];
+
+    [httpManager GET:GN_URL parameters:NULL
+              success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         
+         NSLog(@"JSON: %@",    [operation responseString]);
+         NSMutableDictionary *playlist = responseObject[@"RESPONSE"][0];
+
+        
+       //  ServerResponse *serverResponse = [[ServerResponse alloc] initWithData: dict];
+         //goToDashboard
+         DashboardViewController *dashVC = [[DashboardViewController alloc] init];
+         //dashVC.currentContext = [[ServerResponse alloc] initWithData: dict];
+         dashVC.currentContext = [[ServerResponse alloc] initWithPlaylist:playlist];
+         [self.navigationController pushViewController:dashVC animated:YES];
+     }
+              failure:
+     ^(AFHTTPRequestOperation *operation, NSError *error) {
+         NSLog(@"Error: %@", error);
+     }];
+    
 }
 
 - (void) GNResultReady:(GNSearchResult*)result {
@@ -455,6 +524,11 @@
 }
 
 - (IBAction)goToDasboardButtonPressed:(id)sender {
+    DashboardViewController *dashVC = [[DashboardViewController alloc] init];
+    [self.navigationController pushViewController:dashVC animated:YES];
+}
+
+- (void) goToDashboard {
     DashboardViewController *dashVC = [[DashboardViewController alloc] init];
     [self.navigationController pushViewController:dashVC animated:YES];
 }

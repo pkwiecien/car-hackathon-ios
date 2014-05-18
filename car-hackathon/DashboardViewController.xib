@@ -36,7 +36,7 @@
                     <rect key="frame" x="11" y="428" width="145" height="106"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="RockImage" translatesAutoresizingMaskIntoConstraints="NO" id="FEI-zL-wyS">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="RockImage" translatesAutoresizingMaskIntoConstraints="NO" id="FEI-zL-wyS">
                             <rect key="frame" x="6" y="8" width="133" height="90"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </imageView>
@@ -55,7 +55,7 @@
                     <rect key="frame" x="164" y="428" width="145" height="106"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="RockImage" translatesAutoresizingMaskIntoConstraints="NO" id="pfw-WE-T0I">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="RockImage" translatesAutoresizingMaskIntoConstraints="NO" id="pfw-WE-T0I">
                             <rect key="frame" x="6" y="8" width="133" height="90"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </imageView>
@@ -74,7 +74,7 @@
                     <rect key="frame" x="164" y="309" width="145" height="106"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="RockImage" translatesAutoresizingMaskIntoConstraints="NO" id="sG7-Wa-cdX">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="RockImage" translatesAutoresizingMaskIntoConstraints="NO" id="sG7-Wa-cdX">
                             <rect key="frame" x="6" y="8" width="133" height="90"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </imageView>
@@ -93,7 +93,7 @@
                     <rect key="frame" x="11" y="309" width="145" height="106"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="RockImage" translatesAutoresizingMaskIntoConstraints="NO" id="rLP-tw-4Fk">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="RockImage" translatesAutoresizingMaskIntoConstraints="NO" id="rLP-tw-4Fk">
                             <rect key="frame" x="6" y="8" width="133" height="90"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </imageView>

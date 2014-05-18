@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "Track.h"
 @interface ServerResponse : NSObject
 @property (nonatomic, retain) NSString *weatherType;
 @property (nonatomic, retain) NSString *maxSpeed;
@@ -17,8 +17,10 @@
 @property (nonatomic, retain) NSMutableArray *tracksArtists;
 @property (nonatomic, retain) NSMutableArray *tracksAlbums;
 @property (nonatomic, retain) NSMutableDictionary *genres;
+@property (nonatomic, retain) NSMutableArray *tracks;
 
 - (id) initWithData: (NSMutableDictionary *)responseDict ;
+- (id) initWithPlaylist: (NSMutableDictionary *)playlist;
 @end
 
 
