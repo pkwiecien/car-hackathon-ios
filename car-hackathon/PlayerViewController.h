@@ -23,5 +23,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *dislikeButton;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property (weak, nonatomic) IBOutlet UIButton *likeButtonPressed;
+- (IBAction)toggleLikeButton:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *testButton;
+- (IBAction)testButtonToggled:(id)sender;
 
 @end

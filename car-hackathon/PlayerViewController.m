@@ -16,6 +16,8 @@
 
 @implementation PlayerViewController
 
+static BOOL toggled;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -29,7 +31,9 @@
 {
     [super viewDidLoad];
     [self.playButton setImage:[UtilityManager colorImage:[UIImage imageNamed:@"PlayIcon"] withColor:[UIColor whiteColor]] forState:UIControlStateNormal];
-    
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+
     
     RDPlayer *player = [[AppDelegate rdioInstance] player];
     [player addObserver:self forKeyPath:@"position" options:NSKeyValueObservingOptionNew context:nil];
@@ -41,7 +45,10 @@
     AudioServicesCreateSystemSoundID(urlRef, &incorrectSoundID);
     self.navigationController.navigationBarHidden = NO;
     [self fetchSong];
-        self.playButton.layer.cornerRadius = 60;
+    self.playButton.layer.cornerRadius = 60;
+    [self.dislikeButton setBackgroundImage:[UtilityManager colorImage:[UIImage imageNamed:@"DislikeIcon"] withColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+    [self.likeButton setBackgroundImage:[UtilityManager colorImage:[UIImage imageNamed:@"LikeIcon"] withColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+    toggled = NO;
 }
 
 #pragma mark - RDPlayerDelegate
@@ -78,7 +85,7 @@
     [params setObject:[[Settings settings] userKey] forKey:@"user"];
     
     [[AppDelegate rdioInstance] callAPIMethod:@"get" withParameters:params delegate:self];
-
+    
 }
 
 - (BOOL)rdioIsPlayingElsewhere {
@@ -109,6 +116,15 @@
     [params setObject:[[Settings settings] userKey] forKey:@"user"];
     
     [[AppDelegate rdioInstance] callAPIMethod:@"search" withParameters:params delegate:self];
-
+    
 }
+- (IBAction)toggleLikeButton:(id)sender {
+    if (toggled) {
+        [self.likeButton setBackgroundImage:[UtilityManager colorImage:[UIImage imageNamed:@"LikeIcon"] withColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+    } else {
+        [self.likeButton setBackgroundImage:[UtilityManager colorImage:[UIImage imageNamed:@"LikeIcon"] withColor:[UIColor greenColor]] forState:UIControlStateNormal];
+    }
+    toggled = !toggled;
+}
+
 @end
