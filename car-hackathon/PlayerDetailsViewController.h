@@ -19,10 +19,12 @@
 @property (weak, nonatomic) IBOutlet UIButton *timeIcon;
 @property (weak, nonatomic) IBOutlet UILabel *speedLimitLabel;
 @property (weak, nonatomic) IBOutlet UILabel *artistLabel;
+@property (weak, nonatomic) IBOutlet UILabel *albumLabel;
+@property (weak, nonatomic) IBOutlet UILabel *songLabel;
 
 @property (strong, nonatomic) NSString *artist;
 @property (strong, nonatomic) NSString *song;
-@property (strong, nonatomic) NSString *genre;
+@property (strong, nonatomic) NSString *album;
 
 - (IBAction)closeButtonPressed:(id)sender;
 

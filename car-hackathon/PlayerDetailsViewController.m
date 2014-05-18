@@ -15,8 +15,7 @@
 
 @implementation PlayerDetailsViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -24,8 +23,7 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     [self.closeButton setBackgroundImage:[UtilityManager colorImage:[UIImage imageNamed:@"CrossIcon"] withColor:[UIColor whiteColor]] forState:UIControlStateNormal];
@@ -36,14 +34,12 @@
     [self.timeIcon setBackgroundImage:[UtilityManager colorImage:[UIImage imageNamed:@"DaytimeIcon"] withColor:[UIColor whiteColor]] forState:UIControlStateNormal];
     [self.styleIcon setBackgroundImage:[UtilityManager colorImage:[UIImage imageNamed:@"LightningIcon"] withColor:[UIColor whiteColor]] forState:UIControlStateNormal];
     self.artistLabel.text = self.artist;
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
+    self.albumLabel.text = self.album;
+    self.songLabel.text = self.song;
 }
 
 - (IBAction)closeButtonPressed:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
 @end

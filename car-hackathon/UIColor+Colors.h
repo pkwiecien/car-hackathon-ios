@@ -11,5 +11,6 @@
 @interface UIColor (Colors)
 
 + (UIColor *)customOrange;
++ (UIColor *)customGray;
 
 @end

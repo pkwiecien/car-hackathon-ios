@@ -45,7 +45,7 @@ static int currentTrack;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.playButton setBackgroundImage:[UtilityManager colorImage:[UIImage imageNamed:@"StopIcon"] withColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+    [self.playButton setBackgroundImage:[UtilityManager colorImage:[UIImage imageNamed:@"PlayIcon"] withColor:[UIColor whiteColor]] forState:UIControlStateNormal];
     toggled = YES;
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
@@ -60,6 +60,9 @@ static int currentTrack;
         player.delegate = self;
         // load sound fx
         CFURLRef urlRef = CFBundleCopyResourceURL(CFBundleGetMainBundle(), CFSTR("correct"), CFSTR("wav"), NULL);
+
+        self.navigationController.navigationBar.barTintColor = [UIColor customGray];
+
         AudioServicesCreateSystemSoundID(urlRef, &correctSoundID);
         urlRef = CFBundleCopyResourceURL(CFBundleGetMainBundle(), CFSTR("incorrect"), CFSTR("wav"), NULL);
         AudioServicesCreateSystemSoundID(urlRef, &incorrectSoundID);
@@ -144,7 +147,7 @@ static int currentTrack;
         newTrack.albumUrl = dict[@"results"][0][@"icon400"];
         newTrack.trackId = dict[@"results"][0][@"key"];
         newTrack.artist = dict[@"results"][0][@"artist"];
-        //newTrack.album = dict[@"results"][0][@"album"];
+        newTrack.album = dict[@"results"][0][@"album"];
 
         [self.tracks addObject:newTrack];
     }
@@ -248,9 +251,12 @@ static int currentTrack;
 - (IBAction)detailsButtonPressed:(id)sender {
     dontStopPlayer = YES;
     detailsViewVisible = YES;
-    PlayerDetailsViewController *testVC = [[PlayerDetailsViewController alloc] init];
-    testVC.artist = [[self.tracks objectAtIndex:currentTrack] artist];
-    [self presentViewController:testVC animated:YES completion:nil];
+    PlayerDetailsViewController *detailsVC = [[PlayerDetailsViewController alloc] init];
+    detailsVC.artist = [[self.tracks objectAtIndex:currentTrack] artist];
+    detailsVC.album = [[self.tracks objectAtIndex:currentTrack] album];
+    detailsVC.song = [self.trackNames objectAtIndex:currentTrack];
+    
+    [self presentViewController:detailsVC animated:YES completion:nil];
 }
 
 - (IBAction)playButtonPressed:(id)sender {

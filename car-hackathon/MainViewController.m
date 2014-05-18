@@ -66,8 +66,6 @@
     self.loginView = [[FBLoginView alloc] init];// initWithFrame:CGRectMake(60, 400, 200, 100)];
     self.loginView.frame = CGRectOffset(self.loginView.frame, (self.view.center.x - (self.loginView.frame.size.width / 2)), 5);
     self.loginView.frame = CGRectMake((self.view.center.x - (self.loginView.frame.size.width / 2)),400, self.loginView.frame.size.width, self.loginView.frame.size.height);
-    
-    
 
     self.loginView.readPermissions = @[@"user_likes", @"user_about_me", @"user_actions.music", @"user_activities"];
     self.loginView.delegate = self;
@@ -95,7 +93,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [[AppDelegate rdioInstance] setDelegate:self];
-    
     self.navigationController.navigationBarHidden = YES;
 }
 
@@ -118,23 +115,23 @@
         
     // first intro page
     EAIntroPage *page1 = [EAIntroPage page];
-    page1.title = @"LOGO HERE";
     page1.titlePositionY = 250;
     page1.titleFont = [UIFont systemFontOfSize:FONT_BIG];
     //page1.desc = @"this is sampe description";
     //page1.descPositionY = 200;
-    page1.titleIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CircleBlue"]];
-    page1.titleIconPositionY = 100;
-    page1.bgImage = [UIImage imageNamed:@"phone_welcome_first.png"];
+    UIImageView *logoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 200, 70)];
+    logoView.image = [UIImage imageNamed:@"logo-02"];
+    page1.titleIconView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 70)];
+    [page1.titleIconView addSubview:logoView];
+    page1.titleIconPositionY = 400;
+    page1.bgImage = [UIImage imageNamed:@"phone_welcome_1"];
     
     // second intro page
     EAIntroPage *page2 = [EAIntroPage page];
     page2.desc = @"Play the music fitting your mood and driving style";
     page2.descFont = [UIFont systemFontOfSize:FONT_MEDIUM];
     page2.descPositionY = 200;
-    page2.titleIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CircleBlue"]];
-    page2.titleIconPositionY = 100;
-    page2.bgImage = [UIImage imageNamed:@"phone_welcome_second.png"];
+    page2.bgImage = [UIImage imageNamed:@"phone_welcome_1"];
     
     
     // third intro page
@@ -142,10 +139,7 @@
     page3.desc = @"... also with weather and traffic conditions!";
     page3.descFont = [UIFont systemFontOfSize:FONT_MEDIUM];
     page3.descPositionY = 200;
-    page3.titleIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CircleBlue"]];
-    page3.titleIconPositionY = 100;
-    page3.bgImage = [UIImage imageNamed:@"phone_welcome_third.png"];
-    
+    page3.bgImage = [UIImage imageNamed:@"phone_welcome_fourth"];
     
     EAIntroView *intro = [[EAIntroView alloc] initWithFrame:self.view.bounds andPages:@[page1, page2, page3]];
     intro.delegate = self;
@@ -155,8 +149,9 @@
 
 -(void)introDidFinish:(EAIntroView *)introView {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if (![defaults objectForKey:@"firstRun"])
+    if (![defaults objectForKey:@"firstRun"]) {
         [defaults setObject:[NSDate date] forKey:@"firstRun"];
+    }
     
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
@@ -520,6 +515,12 @@
     [self updateUIAfterConnectivityCheck];
 }
 
+
+-(void)viewDidDisappear:(BOOL)animated {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:nil forKey:@"firstRun"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
 
 
 @end
