@@ -16,10 +16,13 @@
 @property (weak, nonatomic) IBOutlet UIImageView *bottomLeftImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *bottomRightImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *topRightImageView;
+@property (weak, nonatomic) IBOutlet UIView *mainGenreView;
+
 @property (weak, nonatomic) IBOutlet UIView *bottomRightView;
 @property (weak, nonatomic) IBOutlet UIView *bottomLeftView;
 @property (weak, nonatomic) IBOutlet UIView *topLeftView;
 @property (weak, nonatomic) IBOutlet UIView *topRightView;
+@property (weak, nonatomic) IBOutlet UILabel *mainGenreName;
 
 @property (weak, nonatomic) IBOutlet UILabel *topLeftGenreName;
 @property (weak, nonatomic) IBOutlet UILabel *topRightGenreName;

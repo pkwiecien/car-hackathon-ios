@@ -18,6 +18,7 @@
 @implementation DashboardViewController {
     NSArray *genreImageViews;
     NSArray *genreLabels;
+    NSArray *genreViews;
     int currentTile;
     int currentImageCounter;
 }
@@ -52,8 +53,10 @@
     self.bottomLeftView.layer.cornerRadius = 4.0;
     self.bottomRightView.layer.cornerRadius = 4.0;
     
-    genreImageViews = [[NSArray alloc] initWithObjects:self.topLeftImageView, self.topRightImageView, self.bottomLeftImageView, self.bottomRightImageView, nil];
-    genreLabels = [[NSArray alloc] initWithObjects:self.topLeftGenreName, self.topRightGenreName, self.bottomLeftGenreName, self.bottomRightGenreName, nil];
+    genreImageViews = [[NSArray alloc] initWithObjects:self.mainImageView ,self.topLeftImageView, self.topRightImageView, self.bottomLeftImageView, self.bottomRightImageView, nil];
+    genreLabels = [[NSArray alloc] initWithObjects:self.mainGenreName, self.topLeftGenreName, self.topRightGenreName, self.bottomLeftGenreName, self.bottomRightGenreName, nil];
+    
+    genreViews = [[NSArray alloc] initWithObjects:self.mainGenreView, self.topLeftView, self.topRightView, self.bottomLeftView, self.bottomRightView, nil];
     
     //TODO : mock from Raza
     [self addGestureRecognizers];
@@ -83,6 +86,9 @@
         [self fetchAlbumCover:artist];
         UILabel *currentLabel = (UILabel *)[genreLabels objectAtIndex:currentTile];
         currentLabel.text = (NSString*) key;
+        currentLabel.hidden = FALSE;
+        UIView *currentView = (UIView*)[genreViews objectAtIndex:currentTile];
+        currentView.hidden = FALSE;
         currentTile++;
     }
 }
@@ -163,9 +169,15 @@
     if (data != nil && [data objectForKey:@"results"]) {
         //in this step, the result from the server containing the details about an album is returned
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:data];
-        NSString *albumUrl = dict[@"results"][0][@"icon"];
-        NSURL *url = [NSURL URLWithString:albumUrl];
-        NSData *data = [NSData dataWithContentsOfURL:url];
+        NSString *albumIconSmallUrl = dict[@"results"][0][@"icon"];
+        NSString *albumIconBigUrl = [albumIconSmallUrl stringByReplacingOccurrencesOfString:@"-200" withString:@"-400"];
+        NSURL *url = [NSURL URLWithString:albumIconSmallUrl];
+        NSURL *urlBigImage = [NSURL URLWithString:albumIconBigUrl];
+        //try to get the bigger image if possible
+        NSData *data = [NSData dataWithContentsOfURL:urlBigImage];
+        if (data == nil) {
+            data = [NSData dataWithContentsOfURL:url];
+        }
         [self fillEmptyGenreTile:data];
     }
 }
@@ -173,7 +185,9 @@
     //depending on the answer from Raza
     //self.albumCoverImage.image = [[UIImage alloc] initWithData:data];
     UIImageView *currentImageView = [genreImageViews objectAtIndex:currentImageCounter];
+    
     currentImageView.image = [[UIImage alloc] initWithData:data];
+    currentImageView.hidden = FALSE;
     currentImageCounter++;
     NSLog(@"increase image counter");
     
