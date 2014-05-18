@@ -18,7 +18,7 @@
 #import <GracenoteMusicID/GNOperationStatusChanged.h>
 #import "EAIntroView.h"
 
-#import "Constants.h" 
+#import "Constants.h"
 @protocol DeezerAudioPlayerDelegate;
 @protocol DeezerSessionConnectionDelegate;
 @protocol DeezerSessionRequestDelegate;
@@ -58,6 +58,11 @@ typedef enum
 @property (nonatomic) FBLoginView *loginView;
 @property (nonatomic, retain) GNConfig *config;
 @property (nonatomic, readonly) SearchType searchType;
+@property (weak, nonatomic) IBOutlet UIButton *iTunesButton;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *musicTypesIndicator;
+@property (weak, nonatomic) IBOutlet UITextView *fbLoggedLabel;
+@property (weak, nonatomic) IBOutlet UITextView *selectExplanationTextView;
+@property (weak, nonatomic) IBOutlet UIImageView *iTunesIcon;
 
 - (void)presentLoginModal;
 - (void)showAlertWithTitle:(NSString*)title message:(NSString*)message;

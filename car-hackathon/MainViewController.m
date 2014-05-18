@@ -26,7 +26,7 @@
 @property (nonatomic, retain) NSMutableDictionary *likedGenres;
 @property (nonatomic, assign) int artistsTotal;
 @property (nonatomic, assign) int artistsAnalyzed;
-
+@property (nonatomic, assign) BOOL musicRequested;
 @end
 
 @implementation MainViewController
@@ -66,6 +66,8 @@
     self.loginView = [[FBLoginView alloc] init];// initWithFrame:CGRectMake(60, 400, 200, 100)];
     self.loginView.frame = CGRectOffset(self.loginView.frame, (self.view.center.x - (self.loginView.frame.size.width / 2)), 5);
     self.loginView.frame = CGRectMake((self.view.center.x - (self.loginView.frame.size.width / 2)),400, self.loginView.frame.size.width, self.loginView.frame.size.height);
+    
+    
 
     self.loginView.readPermissions = @[@"user_likes", @"user_about_me", @"user_actions.music", @"user_activities"];
     self.loginView.delegate = self;
@@ -78,6 +80,11 @@
     //the GN stuff
     self.config = [GNConfig init:@"11493376-2587743DFEA005B0AC22F8C40DB8A4AB"];
     
+    //used for getting music preferences; in the beginning, not fetched
+    self.musicRequested = false;
+    //hide the activity indicator
+    self.musicTypesIndicator.hidden = TRUE;
+    self.musicTypesIndicator.hidesWhenStopped = TRUE;
     //TODO : either like this or from NSUser defaults
     self.likedGenres = [[NSMutableDictionary alloc] init];
     self.artistsTotal = 0;
@@ -104,6 +111,11 @@
 // show intro
 -(void)viewDidAppear:(BOOL)animated {
     
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults objectForKey:@"firstRun"]) {
+        return;
+    }
+        
     // first intro page
     EAIntroPage *page1 = [EAIntroPage page];
     page1.title = @"LOGO HERE";
@@ -138,6 +150,15 @@
     EAIntroView *intro = [[EAIntroView alloc] initWithFrame:self.view.bounds andPages:@[page1, page2, page3]];
     intro.delegate = self;
     [intro showInView:self.view animateDuration:0.0];
+
+}
+
+-(void)introDidFinish:(EAIntroView *)introView {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if (![defaults objectForKey:@"firstRun"])
+        [defaults setObject:[NSDate date] forKey:@"firstRun"];
+    
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 #pragma mark - RdioDelegate methods
@@ -228,12 +249,21 @@
 - (void)loginViewFetchedUserInfo:(FBLoginView *)loginView
                             user:(id<FBGraphUser>)user {
     [[NSUserDefaults standardUserDefaults] setObject:user.objectID forKey:@"facebookID"];
-    //TODO : with nsuserdefaults
-    //    if (self.artistsAnalyzed !=0 ) {
-    //            [self getMusicLikes];
-    //    }
-    [self getMusicLikes];
-    
+    //FACEBOOK bug - the method is called multiple times
+    // if the user is logged in show how data is fetched
+    if (self.musicRequested == false ){
+        [self getMusicLikes];
+        self.musicTypesIndicator.hidden = FALSE;
+    }
+    [self setupViewLoading:TRUE];
+}
+
+- (void)setupViewLoading:(BOOL) loadingData {
+    self.loginView.hidden = loadingData;
+    self.iTunesButton.hidden = loadingData;
+    self.selectExplanationTextView.hidden = loadingData;
+    self.iTunesIcon.hidden = loadingData;
+    self.fbLoggedLabel.hidden = !loadingData;
 }
 
 // Logged-out user experience
@@ -242,6 +272,8 @@
 }
 
 - (void) getMusicLikes{
+    self.musicRequested = true;
+    [self.musicTypesIndicator startAnimating];
     [FBRequestConnection startWithGraphPath:@"me/music"
                           completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
                               if (!error) {
@@ -344,36 +376,21 @@
         [self.likedGenres setObject:genreValue forKey:genreName];
         NSLog(@"Genre name: %@", genreName);
     }
-    
     self.artistsAnalyzed++;
-    if (self.artistsAnalyzed == self.artistsTotal) {
+    NSLog(@"Artists analyzed %d", self.artistsAnalyzed);
+    if (self.artistsAnalyzed == 6) {
         [self genresEvaluationCompleted];
     }
 }
 
 - (void)genresEvaluationCompleted {
     
-    NSArray *orderedKeysArray;
     
-    orderedKeysArray = [self.likedGenres keysSortedByValueUsingComparator: ^(id obj1, id obj2) {
-        NSMutableArray *arr1 = (NSMutableArray *)obj1;
-        NSMutableArray *arr2 = (NSMutableArray *)obj2;
-        
-        if ([[arr1 objectAtIndex:1] integerValue] < [[arr2 objectAtIndex:1] integerValue]) {
-            
-            return (NSComparisonResult)NSOrderedDescending;
-        }
-        if ([[arr1 objectAtIndex:1] integerValue] > [[arr2 objectAtIndex:1] integerValue]) {
-            
-            return (NSComparisonResult)NSOrderedAscending;
-        }
-        
-        return (NSComparisonResult)NSOrderedSame;
-    }];
     
     NSLog(@"Genres analyze completed %@", self.likedGenres);
     //here go to next screen
     DashboardViewController *dashVC = [[DashboardViewController alloc] init];
+    dashVC.genrePreferences = self.likedGenres;
     [self.navigationController pushViewController:dashVC animated:YES];
 }
 
@@ -383,6 +400,8 @@
 	
 	if ([result isFailure]) {
 		statusString = [NSString stringWithFormat:@"[%d] %@", result.errCode, result.errMessage];
+        //if a request failed => less
+        self.artistsTotal--;
 	} else {
 		if ([result isAnySearchNoMatchStatus]) {
 			statusString = [NSString stringWithFormat:@"NO_MATCH"];

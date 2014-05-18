@@ -49,7 +49,48 @@
     
     
     [self addGestureRecognizers];
+    [self displayGenres];
+}
+
+- (void) displayGenres {
+    NSArray *orderedKeysArray;
     
+    orderedKeysArray = [self.genrePreferences keysSortedByValueUsingComparator: ^(id obj1, id obj2) {
+        NSMutableArray *arr1 = (NSMutableArray *)obj1;
+        NSMutableArray *arr2 = (NSMutableArray *)obj2;
+        
+        if ([[arr1 objectAtIndex:1] integerValue] < [[arr2 objectAtIndex:1] integerValue]) {
+            
+            return (NSComparisonResult)NSOrderedDescending;
+        }
+        if ([[arr1 objectAtIndex:1] integerValue] > [[arr2 objectAtIndex:1] integerValue]) {
+            
+            return (NSComparisonResult)NSOrderedAscending;
+        }
+        
+        return (NSComparisonResult)NSOrderedSame;
+    }];
+    if ([orderedKeysArray count] > 0) {
+        self.topLeftGenreName.text = [orderedKeysArray objectAtIndex:0];
+    }
+    if ([orderedKeysArray count] > 1) {
+        self.topRightGenreName.text = [orderedKeysArray objectAtIndex:1];
+    }
+    if ([orderedKeysArray count] > 2) {
+        self.bottomLeftGenreName.text = [orderedKeysArray objectAtIndex:2];
+    }
+    if ([orderedKeysArray count] > 3) {
+        self.bottomRightGenreName.text = [orderedKeysArray objectAtIndex:3];
+    }
+   /*
+    for (NSString *favKey in orderedKeysArray) {
+        <#statements#>
+    }
+    self.topLeftImageView
+    self.topRightImageView
+    self.bottomLeftImageView
+    self.topRightImageView
+    self.genrePreferences obje */
 }
 
 -(void)tapGestureTapped {
