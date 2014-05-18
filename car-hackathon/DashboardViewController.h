@@ -21,6 +21,13 @@
 @property (weak, nonatomic) IBOutlet UIView *topLeftView;
 @property (weak, nonatomic) IBOutlet UIView *topRightView;
 
+@property (weak, nonatomic) IBOutlet UILabel *topLeftGenreName;
+@property (weak, nonatomic) IBOutlet UILabel *topRightGenreName;
+@property (weak, nonatomic) IBOutlet UILabel *bottomLeftGenreName;
+@property (weak, nonatomic) IBOutlet UILabel *bottomRightGenreName;
+
+
+@property (weak, nonatomic) NSMutableDictionary *genrePreferences;
 
 - (IBAction)mainButtonPressed:(id)sender;
 

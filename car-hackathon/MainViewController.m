@@ -82,6 +82,9 @@
     
     //used for getting music preferences; in the beginning, not fetched
     self.musicRequested = false;
+    //hide the activity indicator
+    self.musicTypesIndicator.hidden = TRUE;
+    self.musicTypesIndicator.hidesWhenStopped = TRUE;
     //TODO : either like this or from NSUser defaults
     self.likedGenres = [[NSMutableDictionary alloc] init];
     self.artistsTotal = 0;
@@ -250,6 +253,7 @@
     // if the user is logged in show how data is fetched
     if (self.musicRequested == false ){
         [self getMusicLikes];
+        self.musicTypesIndicator.hidden = FALSE;
     }
     [self setupViewLoading:TRUE];
 }
@@ -381,27 +385,12 @@
 
 - (void)genresEvaluationCompleted {
     
-    NSArray *orderedKeysArray;
     
-    orderedKeysArray = [self.likedGenres keysSortedByValueUsingComparator: ^(id obj1, id obj2) {
-        NSMutableArray *arr1 = (NSMutableArray *)obj1;
-        NSMutableArray *arr2 = (NSMutableArray *)obj2;
-        
-        if ([[arr1 objectAtIndex:1] integerValue] < [[arr2 objectAtIndex:1] integerValue]) {
-            
-            return (NSComparisonResult)NSOrderedDescending;
-        }
-        if ([[arr1 objectAtIndex:1] integerValue] > [[arr2 objectAtIndex:1] integerValue]) {
-            
-            return (NSComparisonResult)NSOrderedAscending;
-        }
-        
-        return (NSComparisonResult)NSOrderedSame;
-    }];
     
     NSLog(@"Genres analyze completed %@", self.likedGenres);
     //here go to next screen
     DashboardViewController *dashVC = [[DashboardViewController alloc] init];
+    dashVC.genrePreferences = self.likedGenres;
     [self.navigationController pushViewController:dashVC animated:YES];
 }
 
