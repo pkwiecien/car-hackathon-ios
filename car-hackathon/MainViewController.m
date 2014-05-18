@@ -378,7 +378,8 @@
     }
     self.artistsAnalyzed++;
     NSLog(@"Artists analyzed %d", self.artistsAnalyzed);
-    if (self.artistsAnalyzed == 6) {
+    //WHEN GOT HALF OF THE GENRES, IT GOES TO NEXT SCREEN
+    if (self.artistsAnalyzed == (self.artistsAnalyzed / 2 )) {
         [self genresEvaluationCompleted];
     }
 }
