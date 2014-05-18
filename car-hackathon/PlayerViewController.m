@@ -13,7 +13,6 @@
 
 @interface PlayerViewController ()
 
-@property (nonatomic, strong) NSMutableArray *trackNames;
 @property (nonatomic, strong) NSMutableArray *trackHistory;
 @property (nonatomic, strong) NSMutableArray *tracks;
 
@@ -144,10 +143,18 @@ static int currentTrack;
         }
         
         Track *newTrack = [[Track alloc] init];
-        newTrack.albumUrl = dict[@"results"][0][@"icon400"];
-        newTrack.trackId = dict[@"results"][0][@"key"];
-        newTrack.artist = dict[@"results"][0][@"artist"];
-        newTrack.album = dict[@"results"][0][@"album"];
+        if ([dict[@"results"][0] objectForKey:@"icon400"]) {
+            newTrack.albumUrl = dict[@"results"][0][@"icon400"];
+        }
+        if ([dict[@"results"][0] objectForKey:@"key"]) {
+            newTrack.trackId = dict[@"results"][0][@"key"];
+        }
+        if ([dict[@"results"][0] objectForKey:@"artist"]) {
+            newTrack.artist = dict[@"results"][0][@"artist"];
+        }
+        if ([dict[@"results"][0] objectForKey:@"album"]) {
+            newTrack.album = dict[@"results"][0][@"album"];
+        }
 
         [self.tracks addObject:newTrack];
     }

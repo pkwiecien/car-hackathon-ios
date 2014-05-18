@@ -17,15 +17,17 @@
     SystemSoundID incorrectSoundID;
 }
 
-- (IBAction)playButtonPressed:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
 @property (weak, nonatomic) IBOutlet UIImageView *albumCoverImage;
-- (IBAction)dislikeButtonPressed:(id)sender;
+@property (nonatomic, strong) NSMutableArray *trackNames;
+@property (weak, nonatomic) IBOutlet UIButton *detailsButton;
 @property (weak, nonatomic) IBOutlet UIButton *dislikeButton;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property (weak, nonatomic) IBOutlet UIButton *likeButtonPressed;
+
+- (IBAction)playButtonPressed:(id)sender;
+- (IBAction)dislikeButtonPressed:(id)sender;
 - (IBAction)toggleLikeButton:(id)sender;
 - (IBAction)detailsButtonPressed:(id)sender;
-@property (weak, nonatomic) IBOutlet UIButton *detailsButton;
 
 @end
