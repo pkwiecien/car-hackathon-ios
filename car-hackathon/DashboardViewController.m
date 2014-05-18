@@ -45,6 +45,17 @@
     self.topRightView.layer.cornerRadius = 4.0;
     self.bottomLeftView.layer.cornerRadius = 4.0;
     self.bottomRightView.layer.cornerRadius = 4.0;
+    
+    
+    [self addGestureRecognizers];
+    
+}
+
+-(void)tapGestureTapped {
+    if(self.topLeftView.backgroundColor == [UIColor whiteColor]) {
+        self.topLeftView.backgroundColor = [UIColor customOrange];
+    } else
+        self.topLeftView.backgroundColor = [UIColor whiteColor];
 }
 
 -(void)rightBarButtonItemPressed {
@@ -52,9 +63,55 @@
     [self.navigationController pushViewController:settingsVC animated:YES];
 }
 
+
 - (IBAction)mainButtonPressed:(id)sender {
     PlayerViewController *playerVC = [[PlayerViewController alloc] init];
     [self.navigationController pushViewController:playerVC animated:YES];
 }
 
+
+-(void)addGestureRecognizers {
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureTapped)];
+    tapGesture.delegate = self;
+    [tapGesture setNumberOfTapsRequired:1];
+    [[self topLeftView] addGestureRecognizer:tapGesture];
+    
+    // sorry for copying but it's the quickest
+    UITapGestureRecognizer *tapGesture2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureTapped2)];
+    tapGesture2.delegate = self;
+    [tapGesture2 setNumberOfTapsRequired:1];
+    [[self topRightView] addGestureRecognizer:tapGesture2];
+
+    UITapGestureRecognizer *tapGesture3 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureTapped3)];
+    tapGesture3.delegate = self;
+    [tapGesture3 setNumberOfTapsRequired:1];
+    [[self bottomLeftView] addGestureRecognizer:tapGesture3];
+    
+    UITapGestureRecognizer *tapGesture4 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureTapped4)];
+    tapGesture4.delegate = self;
+    [tapGesture4 setNumberOfTapsRequired:1];
+    [[self bottomRightView] addGestureRecognizer:tapGesture4];
+
+}
+
+-(void)tapGestureTapped2 {
+    if(self.topRightView.backgroundColor == [UIColor whiteColor]) {
+        self.topRightView.backgroundColor = [UIColor customOrange];
+    } else
+        self.topRightView.backgroundColor = [UIColor whiteColor];
+}
+
+-(void)tapGestureTapped3 {
+    if(self.bottomLeftView.backgroundColor == [UIColor whiteColor]) {
+        self.bottomLeftView.backgroundColor = [UIColor customOrange];
+    } else
+        self.bottomLeftView.backgroundColor = [UIColor whiteColor];
+}
+
+-(void)tapGestureTapped4 {
+    if(self.bottomRightView.backgroundColor == [UIColor whiteColor]) {
+        self.bottomRightView.backgroundColor = [UIColor customOrange];
+    } else
+        self.bottomRightView.backgroundColor = [UIColor whiteColor];
+}
 @end

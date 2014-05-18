@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DashboardViewController : UIViewController
+@interface DashboardViewController : UIViewController <UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *mainLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *mainImageView;
@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIView *bottomLeftView;
 @property (weak, nonatomic) IBOutlet UIView *topLeftView;
 @property (weak, nonatomic) IBOutlet UIView *topRightView;
+
 
 - (IBAction)mainButtonPressed:(id)sender;
 

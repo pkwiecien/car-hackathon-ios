@@ -33,6 +33,7 @@
     
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     self.title = @"Settings";
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
