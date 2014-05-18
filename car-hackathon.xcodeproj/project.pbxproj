@@ -241,6 +241,13 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
+		E50E9E9119284BB3008B4F58 /* Stats View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Stats View";
+			sourceTree = "<group>";
+		};
 		E5BAA1D71926B55800A4020C = {
 			isa = PBXGroup;
 			children = (
@@ -335,6 +342,7 @@
 		E5BF2F451926B64E00FC42BD /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				E50E9E9119284BB3008B4F58 /* Stats View */,
 				E50E9E8719282BD7008B4F58 /* Player */,
 				E50E9E7D19282187008B4F58 /* Login Screen */,
 				E50E9E7B19282035008B4F58 /* Dashboard */,

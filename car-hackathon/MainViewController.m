@@ -379,9 +379,9 @@
     self.artistsAnalyzed++;
     NSLog(@"Artists analyzed %d", self.artistsAnalyzed);
     //WHEN GOT HALF OF THE GENRES, IT GOES TO NEXT SCREEN
-    if (self.artistsAnalyzed == (self.artistsAnalyzed / 2 )) {
+    //if (self.artistsAnalyzed == (self.artistsAnalyzed / 2 )) {
         [self genresEvaluationCompleted];
-    }
+    //}
 }
 
 - (void)genresEvaluationCompleted {

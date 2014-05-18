@@ -76,6 +76,7 @@ static BOOL toggled;
             self.albumCoverImage.image = [[UIImage alloc] initWithData:data];
         }
     }
+    
 }
 
 -(void)requestSongWithId:(NSString *)trackId {
@@ -125,6 +126,19 @@ static BOOL toggled;
         [self.likeButton setBackgroundImage:[UtilityManager colorImage:[UIImage imageNamed:@"LikeIcon"] withColor:[UIColor greenColor]] forState:UIControlStateNormal];
     }
     toggled = !toggled;
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+//    RDPlayer* player = [[AppDelegate rdioInstance] player];
+//    [player removeObserver:self forKeyPath:@"position"];
+//    [[[AppDelegate rdioInstance] player] stop];
+}
+
+
+- (void)dealloc {
+    RDPlayer* player = [[AppDelegate rdioInstance] player];
+    [player removeObserver:self forKeyPath:@"position"];
+    [player stop];
 }
 
 @end
