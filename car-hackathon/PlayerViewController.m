@@ -9,25 +9,34 @@
 #import "PlayerViewController.h"
 #import "UtilityManager.h"
 #import "PlayerDetailsViewController.h"
+#import "Track.h"
 
 @interface PlayerViewController ()
 
-@property (nonatomic, strong) NSMutableArray *artistNames;
+@property (nonatomic, strong) NSMutableArray *trackNames;
 @property (nonatomic, strong) NSMutableArray *trackHistory;
+@property (nonatomic, strong) NSMutableArray *tracks;
+
+@property (strong, nonatomic) NSString *artist;
+@property (strong, nonatomic) NSString *song;
+@property (strong, nonatomic) NSString *genre;
+
 @end
 
 @implementation PlayerViewController
 
 static BOOL toggled;
 static BOOL isPlayed;
+static BOOL isPlaying;
 static BOOL dontStopPlayer;
 static BOOL detailsViewVisible;
+static int currentTrack;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.artistNames = [[NSMutableArray alloc] initWithObjects:@"Muse", @"Editors", @"Imagine Dragons", nil];
+        self.trackNames = [[NSMutableArray alloc] initWithObjects:@"Sail", @"Starlight", @"Madness", nil];
         self.trackHistory = [[NSMutableArray alloc] init];
     }
     return self;
@@ -36,9 +45,11 @@ static BOOL detailsViewVisible;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.playButton setBackgroundImage:[UtilityManager colorImage:[UIImage imageNamed:@"PlayIcon"] withColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+    [self.playButton setBackgroundImage:[UtilityManager colorImage:[UIImage imageNamed:@"StopIcon"] withColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+    toggled = YES;
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.tracks = [[NSMutableArray alloc] init];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -53,12 +64,13 @@ static BOOL detailsViewVisible;
         urlRef = CFBundleCopyResourceURL(CFBundleGetMainBundle(), CFSTR("incorrect"), CFSTR("wav"), NULL);
         AudioServicesCreateSystemSoundID(urlRef, &incorrectSoundID);
         self.navigationController.navigationBarHidden = NO;
-        [self fetchSong];
+        // [self fetchSong];
         self.playButton.layer.cornerRadius = 60;
         [self.dislikeButton setBackgroundImage:[UtilityManager colorImage:[UIImage imageNamed:@"DislikeIcon"] withColor:[UIColor whiteColor]] forState:UIControlStateNormal];
         [self.likeButton setBackgroundImage:[UtilityManager colorImage:[UIImage imageNamed:@"LikeIcon"] withColor:[UIColor whiteColor]] forState:UIControlStateNormal];
         toggled = NO;
-        isPlayed = YES;
+        isPlayed = NO;
+        isPlaying = NO;
         
         [self.albumCoverImage setUserInteractionEnabled:YES];
         
@@ -75,13 +87,21 @@ static BOOL detailsViewVisible;
         [self.albumCoverImage addGestureRecognizer:swipeLeft];
         [self.albumCoverImage addGestureRecognizer:swipeRight];
         
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureTapped)];
-        tapGesture.delegate = self;
-        [tapGesture setNumberOfTapsRequired:1];
-        [[self albumCoverImage] addGestureRecognizer:tapGesture];
+        [self fetchSongs];
+        currentTrack = 0;
     } else {
         detailsViewVisible = NO;
         dontStopPlayer = NO;
+    }
+}
+
+-(void)fetchSongs {
+    for (NSString *trackName in self.trackNames) {
+        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+        [params setObject:trackName forKey:@"query"];
+        [params setObject:@"Track" forKey:@"types"];
+        [params setObject:[[Settings settings] userKey] forKey:@"user"];
+        [[AppDelegate rdioInstance] callAPIMethod:@"search" withParameters:params delegate:self];
     }
 }
 
@@ -89,33 +109,23 @@ static BOOL detailsViewVisible;
     
     if (swipe.direction == UISwipeGestureRecognizerDirectionLeft) {
         NSLog(@"Left Swipe");
-        [self fetchSong];
+        [self playNextTrack];
     }
     
     if (swipe.direction == UISwipeGestureRecognizerDirectionRight) {
         NSLog(@"Right Swipe");
-        if ([self.trackHistory count] > 0) {
-            [self.trackHistory removeLastObject];
-            NSString *lastTrackId = [self.trackHistory lastObject];
-            [self playTrackWithId:lastTrackId];
-        }
+//        if ([self.trackHistory count] > 0) {
+//            [self.trackHistory removeLastObject];
+//            NSString *lastTrackId = [self.trackHistory lastObject];
+//            //[self playTrackWithId:lastTrackId];
+//        }
     }
-}
-
--(void)tapGestureTapped {
-    if (isPlayed) {
-        [[[AppDelegate rdioInstance] player] stop];
-        [self.playButton setBackgroundImage:[UtilityManager colorImage:[UIImage imageNamed:@"StopIcon"] withColor:[UIColor whiteColor]] forState:UIControlStateNormal];
-    } else {
-        [[[AppDelegate rdioInstance] player] play];
-        [self.playButton setBackgroundImage:[UtilityManager colorImage:[UIImage imageNamed:@"PlayIcon"] withColor:[UIColor whiteColor]] forState:UIControlStateNormal];
-    }
-    isPlayed = !isPlayed;
 }
 
 #pragma mark - RDPlayerDelegate
 - (void)rdioPlayerChangedFromState:(RDPlayerState)oldState toState:(RDPlayerState)newState {
     NSLog(@"*** Player changed from state: %d toState: %d", oldState, newState);
+    //[self playTrackWithId:[[self.tracks objectAtIndex:(currentTrack-1)] trackId]];
 }
 
 - (void)rdioRequest:(RDAPIRequest *)request didFailWithError:(NSError*)error {
@@ -124,19 +134,17 @@ static BOOL detailsViewVisible;
 
 - (void)rdioRequest:(RDAPIRequest *)request didLoadData:(id)data {
     if (data != nil && [data objectForKey:@"results"]) {
+        
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:data];
-        NSString *trackId = dict[@"results"][0][@"topSongsKey"];
-        [self playTrackWithId:trackId];
-    } else {
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:data];
-        for (NSString * key in dict) {
-            NSString *coverUrl = dict[key][@"tracks"][0][@"icon400"];
-            NSURL *url = [NSURL URLWithString:coverUrl];
-            NSData *data = [NSData dataWithContentsOfURL:url];
-            self.albumCoverImage.image = [[UIImage alloc] initWithData:data];
+        if (dict ==  nil || [dict[@"results"] count] == 0) {
+            return;
         }
+        
+        Track *newTrack = [[Track alloc] init];
+        newTrack.albumUrl = dict[@"results"][0][@"icon400"];
+        newTrack.trackId = dict[@"results"][0][@"key"];
+        [self.tracks addObject:newTrack];
     }
-    
 }
 
 -(void)requestSongWithId:(NSString *)trackId {
@@ -144,7 +152,6 @@ static BOOL detailsViewVisible;
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:trackId forKey:@"keys"];
     [params setObject:[[Settings settings] userKey] forKey:@"user"];
-    
     [[AppDelegate rdioInstance] callAPIMethod:@"get" withParameters:params delegate:self];
 }
 
@@ -164,16 +171,17 @@ static BOOL detailsViewVisible;
 }
 
 - (IBAction)dislikeButtonPressed:(id)sender {
-    [self fetchSong];
+    // [self fetchSong];
     [self untoggleLikeButton];
 }
 
 -(void)fetchSong {
-    NSInteger randomNumber = arc4random() % [self.artistNames count];
-    NSString *artist = [self.artistNames objectAtIndex:randomNumber];
+    
+    NSInteger randomNumber = arc4random() % [self.trackNames count];
+    NSString *artist = [self.trackNames objectAtIndex:randomNumber];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:artist forKey:@"query"];
-    [params setObject:@"Artist" forKey:@"types"];
+    [params setObject:@"Track" forKey:@"types"];
     [params setObject:[[Settings settings] userKey] forKey:@"user"];
     
     [[AppDelegate rdioInstance] callAPIMethod:@"search" withParameters:params delegate:self];
@@ -188,10 +196,34 @@ static BOOL detailsViewVisible;
     toggled = !toggled;
 }
 
+-(void)playCurrentTrack {
+    if (currentTrack >= [self.tracks count]) {
+        currentTrack = 0;
+    }
+    Track *newTrack = [self.tracks objectAtIndex:currentTrack];
+    [[[AppDelegate rdioInstance] player] playSource:newTrack.trackId];
+    NSURL *url = [NSURL URLWithString:newTrack.albumUrl];
+    NSData *data = [NSData dataWithContentsOfURL:url];
+    self.albumCoverImage.image = [[UIImage alloc] initWithData:data];
+}
+
+-(void)playNextTrack {
+    if (currentTrack >= [self.tracks count]) {
+        currentTrack = 0;
+    }
+    Track *newTrack = [self.tracks objectAtIndex:currentTrack];
+    [[[AppDelegate rdioInstance] player] playSource:newTrack.trackId];
+    NSURL *url = [NSURL URLWithString:newTrack.albumUrl];
+    NSData *data = [NSData dataWithContentsOfURL:url];
+    self.albumCoverImage.image = [[UIImage alloc] initWithData:data];
+    currentTrack++;
+}
+
 -(void)playTrackWithId:(NSString *)trackId {
+    isPlaying = YES;
     [[[AppDelegate rdioInstance] player] playSource:trackId];
     [self.trackHistory addObject:trackId];
-    [self requestSongWithId:trackId];
+   // [self requestSongWithId:trackId];
     
     for (NSString *track in self.trackHistory) {
         NSLog(@"Track %@", track);
@@ -218,6 +250,17 @@ static BOOL detailsViewVisible;
     detailsViewVisible = YES;
     PlayerDetailsViewController *testVC = [[PlayerDetailsViewController alloc] init];
     [self presentViewController:testVC animated:YES completion:nil];
+}
+
+- (IBAction)playButtonPressed:(id)sender {
+    if (isPlayed) {
+        [[[AppDelegate rdioInstance] player] stop];
+        [self.playButton setBackgroundImage:[UtilityManager colorImage:[UIImage imageNamed:@"PlayIcon"] withColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+    } else {
+        [self playCurrentTrack];
+        [self.playButton setBackgroundImage:[UtilityManager colorImage:[UIImage imageNamed:@"StopIcon"] withColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+    }
+    isPlayed = !isPlayed;
 }
 
 @end

@@ -17,6 +17,7 @@
     SystemSoundID incorrectSoundID;
 }
 
+- (IBAction)playButtonPressed:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
 @property (weak, nonatomic) IBOutlet UIImageView *albumCoverImage;
 - (IBAction)dislikeButtonPressed:(id)sender;
