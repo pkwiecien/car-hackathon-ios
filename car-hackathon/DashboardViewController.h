@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ServerResponse.h"
 @interface DashboardViewController : UIViewController <UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *mainLabel;
@@ -28,7 +28,7 @@
 
 
 @property (weak, nonatomic) NSMutableDictionary *genrePreferences;
-
+@property (nonatomic, retain) ServerResponse *currentContext;
 - (IBAction)mainButtonPressed:(id)sender;
 
 @end
