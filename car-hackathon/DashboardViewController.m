@@ -21,7 +21,7 @@
     NSArray *genreViews;
     int currentTile;
     int currentImageCounter;
-}
+    }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -61,6 +61,7 @@
     //TODO : mock from Raza
     [self addGestureRecognizers];
     [self displayGenres];
+    
 }
 
 - (void) fetchAlbumCover: (NSString *) artist{
@@ -108,6 +109,7 @@
 
 - (IBAction)mainButtonPressed:(id)sender {
     PlayerViewController *playerVC = [[PlayerViewController alloc] init];
+    playerVC.trackNames = [self.currentContext.tracks copy];
     [self.navigationController pushViewController:playerVC animated:YES];
 }
 

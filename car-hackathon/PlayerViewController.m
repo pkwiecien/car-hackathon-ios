@@ -98,9 +98,9 @@ static int currentTrack;
 }
 
 -(void)fetchSongs {
-    for (NSString *trackName in self.trackNames) {
+    for (Track *track in self.trackNames) {
         NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-        [params setObject:trackName forKey:@"query"];
+        [params setObject:track.songTitle forKey:@"query"];
         [params setObject:@"Track" forKey:@"types"];
         [params setObject:[[Settings settings] userKey] forKey:@"user"];
         [[AppDelegate rdioInstance] callAPIMethod:@"search" withParameters:params delegate:self];

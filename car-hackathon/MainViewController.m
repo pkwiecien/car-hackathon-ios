@@ -32,6 +32,10 @@
 
 @implementation MainViewController {
     AFHTTPRequestOperationManager *httpManager;
+    NSArray *genreValues;
+    NSArray *genreIDs;
+    NSDictionary *genreDictionary;
+
 }
 
 @synthesize activityIndicator;
@@ -92,6 +96,11 @@
     self.artistsAnalyzed = 0;
     
     [self initHTTPManager];
+    
+    
+    genreValues = [NSArray arrayWithObjects: @"Alternative", @"Rock", nil];
+    genreIDs = [NSArray arrayWithObjects:@"25961", @"25964", nil];
+    genreDictionary = [NSDictionary dictionaryWithObjects:genreIDs forKeys:genreValues];
 }
 
 -(void) initHTTPManager {
@@ -439,9 +448,12 @@
     NSString *SERVER_URL = @"http://lit-castle-9656.herokuapp.com/api/v1/users";
     NSString *GN_URL = @"https://c11493376.web.cddbp.net/webapi/json/1.0/radio/create?client=11493376-2587743DFEA005B0AC22F8C40DB8A4AB&user=263552350177047583-9A591374B87F3A53E1A77FFDA20770A8&seed=mood_65326";
     NSDictionary *postObject = [[NSMutableDictionary alloc] init];
-    [postObject setValue:orderedKeysArray forKeyPath:@"genres"];
-    
-    [httpManager GET:SERVER_URL parameters:NULL
+    NSArray *genreDetails = [self.likedGenres objectForKey:[orderedKeysArray objectAtIndex:0]];
+    [postObject setValue:[genreDetails objectAtIndex:0]  forKeyPath:@"genre"];
+    NSString *favoriteGenderValue  = [orderedKeysArray objectAtIndex:0];
+    NSString *favoriteGenderID = [genreDictionary objectForKey:favoriteGenderValue];
+    [postObject setValue:favoriteGenderID forKeyPath:@"genre"];
+    [httpManager GET:SERVER_URL parameters:postObject
              success:^(AFHTTPRequestOperation *operation, id responseObject)
      {
          
