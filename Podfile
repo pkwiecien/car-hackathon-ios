@@ -7,3 +7,4 @@ pod 'Rdio', '~> 1.3'
 pod 'Facebook-iOS-SDK', '~> 3.14'
 # pod: intro view, https://github.com/ealeksandrov/EAIntroView
 pod 'EAIntroView', '~> 2.5.0'
+pod 'AFNetworking', '~> 2.0'
