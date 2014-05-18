@@ -39,6 +39,7 @@
 		E50E9E9619288F46008B4F58 /* PlayerDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E50E9E9419288F46008B4F58 /* PlayerDetailsViewController.m */; };
 		E50E9E9719288F46008B4F58 /* PlayerDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50E9E9519288F46008B4F58 /* PlayerDetailsViewController.xib */; };
 		E50E9E9A1928A63C008B4F58 /* Track.m in Sources */ = {isa = PBXBuildFile; fileRef = E50E9E991928A63C008B4F58 /* Track.m */; };
+		E50E9E9D1928D180008B4F58 /* ServerResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = E50E9E9C1928D180008B4F58 /* ServerResponse.m */; };
 		E5BAA1E41926B55800A4020C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5BAA1E31926B55800A4020C /* Foundation.framework */; };
 		E5BAA1E61926B55800A4020C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5BAA1E51926B55800A4020C /* CoreGraphics.framework */; };
 		E5BAA1E81926B55800A4020C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5BAA1E71926B55800A4020C /* UIKit.framework */; };
@@ -113,6 +114,8 @@
 		E50E9E9519288F46008B4F58 /* PlayerDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerDetailsViewController.xib; sourceTree = "<group>"; };
 		E50E9E981928A63C008B4F58 /* Track.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Track.h; sourceTree = "<group>"; };
 		E50E9E991928A63C008B4F58 /* Track.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Track.m; sourceTree = "<group>"; };
+		E50E9E9B1928D180008B4F58 /* ServerResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerResponse.h; sourceTree = "<group>"; };
+		E50E9E9C1928D180008B4F58 /* ServerResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerResponse.m; sourceTree = "<group>"; };
 		E5BAA1E01926B55800A4020C /* Carbeats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Carbeats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5BAA1E31926B55800A4020C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E5BAA1E51926B55800A4020C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -224,6 +227,8 @@
 		E50E9E7E1928252E008B4F58 /* Utlities */ = {
 			isa = PBXGroup;
 			children = (
+				E50E9E9B1928D180008B4F58 /* ServerResponse.h */,
+				E50E9E9C1928D180008B4F58 /* ServerResponse.m */,
 				E50E9E7F19282582008B4F58 /* UtilityManager.h */,
 				E50E9E8019282582008B4F58 /* UtilityManager.m */,
 			);
@@ -528,6 +533,7 @@
 				E50E9E7819281D58008B4F58 /* SettingsViewController.m in Sources */,
 				E50E9E7319281BD9008B4F58 /* DashboardViewController.m in Sources */,
 				E50E9E9A1928A63C008B4F58 /* Track.m in Sources */,
+				E50E9E9D1928D180008B4F58 /* ServerResponse.m in Sources */,
 				E50E9E061927962F008B4F58 /* MainViewController.m in Sources */,
 				E50E9E8119282582008B4F58 /* UtilityManager.m in Sources */,
 				E5BAA1F01926B55800A4020C /* main.m in Sources */,

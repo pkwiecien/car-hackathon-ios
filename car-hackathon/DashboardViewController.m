@@ -15,7 +15,13 @@
 
 @end
 
-@implementation DashboardViewController
+@implementation DashboardViewController {
+    NSArray *genreImageViews;
+    NSArray *genreLabels;
+    NSArray *genreViews;
+    int currentTile;
+    int currentImageCounter;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -47,52 +53,46 @@
     self.bottomLeftView.layer.cornerRadius = 4.0;
     self.bottomRightView.layer.cornerRadius = 4.0;
     
+    genreImageViews = [[NSArray alloc] initWithObjects:self.mainImageView ,self.topLeftImageView, self.topRightImageView, self.bottomLeftImageView, self.bottomRightImageView, nil];
+    genreLabels = [[NSArray alloc] initWithObjects:self.topLeftGenreName, self.topRightGenreName, self.bottomLeftGenreName, self.bottomRightGenreName, nil];
     
+    genreViews = [[NSArray alloc] initWithObjects:self.topLeftView, self.topRightView, self.bottomLeftView, self.bottomRightView, nil];
+    
+    //TODO : mock from Raza
     [self addGestureRecognizers];
     [self displayGenres];
 }
 
-- (void) displayGenres {
-    NSArray *orderedKeysArray;
-    
-    orderedKeysArray = [self.genrePreferences keysSortedByValueUsingComparator: ^(id obj1, id obj2) {
-        NSMutableArray *arr1 = (NSMutableArray *)obj1;
-        NSMutableArray *arr2 = (NSMutableArray *)obj2;
-        
-        if ([[arr1 objectAtIndex:1] integerValue] < [[arr2 objectAtIndex:1] integerValue]) {
-            
-            return (NSComparisonResult)NSOrderedDescending;
-        }
-        if ([[arr1 objectAtIndex:1] integerValue] > [[arr2 objectAtIndex:1] integerValue]) {
-            
-            return (NSComparisonResult)NSOrderedAscending;
-        }
-        
-        return (NSComparisonResult)NSOrderedSame;
-    }];
-    if ([orderedKeysArray count] > 0) {
-        self.topLeftGenreName.text = [orderedKeysArray objectAtIndex:0];
-    }
-    if ([orderedKeysArray count] > 1) {
-        self.topRightGenreName.text = [orderedKeysArray objectAtIndex:1];
-    }
-    if ([orderedKeysArray count] > 2) {
-        self.bottomLeftGenreName.text = [orderedKeysArray objectAtIndex:2];
-    }
-    if ([orderedKeysArray count] > 3) {
-        self.bottomRightGenreName.text = [orderedKeysArray objectAtIndex:3];
-    }
-   /*
-    for (NSString *favKey in orderedKeysArray) {
-        <#statements#>
-    }
-    self.topLeftImageView
-    self.topRightImageView
-    self.bottomLeftImageView
-    self.topRightImageView
-    self.genrePreferences obje */
+- (void) fetchAlbumCover: (NSString *) artist{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:artist forKey:@"query"];
+    [params setObject:@"album" forKey:@"types"];
+    //[params setObject:[[Settings settings] userKey] forKey:@"user"];
+    [[AppDelegate rdioInstance] callAPIMethod:@"search" withParameters:params delegate:self];
 }
 
+- (void) displayGenres {
+    //display the 4 genres
+    
+    //all the genres are in self.currentContext.genres
+    //for each (distinct) genre, get one artist and populate the tiles
+    currentTile = 0;
+    currentImageCounter = 0;
+    for(id key in self.currentContext.genres) {
+        NSString* artist = [self.currentContext.genres objectForKey:key];
+        [self fetchAlbumCover:artist];
+        UILabel *currentLabel = (UILabel *)[genreLabels objectAtIndex:currentTile];
+        currentLabel.text = (NSString*) key;
+        currentLabel.hidden = FALSE;
+        UIView *currentView = (UIView*)[genreViews objectAtIndex:currentTile];
+        currentView.hidden = FALSE;
+        currentTile++;
+    }
+}
+
+- (void) fillEmptyGenreTile:(UIImageView*)imageView withAlbum:(NSString*)album {
+    
+}
 -(void)tapGestureTapped {
     if(self.topLeftView.backgroundColor == [UIColor whiteColor]) {
         self.topLeftView.backgroundColor = [UIColor customOrange];
@@ -123,7 +123,7 @@
     tapGesture2.delegate = self;
     [tapGesture2 setNumberOfTapsRequired:1];
     [[self topRightView] addGestureRecognizer:tapGesture2];
-
+    
     UITapGestureRecognizer *tapGesture3 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureTapped3)];
     tapGesture3.delegate = self;
     [tapGesture3 setNumberOfTapsRequired:1];
@@ -133,7 +133,7 @@
     tapGesture4.delegate = self;
     [tapGesture4 setNumberOfTapsRequired:1];
     [[self bottomRightView] addGestureRecognizer:tapGesture4];
-
+    
 }
 
 -(void)tapGestureTapped2 {
@@ -156,4 +156,38 @@
     } else
         self.bottomRightView.backgroundColor = [UIColor whiteColor];
 }
+
+- (void)rdioRequest:(RDAPIRequest *)request didFailWithError:(NSError*)error {
+    
+}
+
+- (void)rdioRequest:(RDAPIRequest *)request didLoadData:(id)data {
+    
+    if (data != nil && [data objectForKey:@"results"]) {
+        //in this step, the result from the server containing the details about an album is returned
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:data];
+        NSString *albumIconSmallUrl = dict[@"results"][0][@"icon"];
+        NSString *albumIconBigUrl = [albumIconSmallUrl stringByReplacingOccurrencesOfString:@"-200" withString:@"-400"];
+        NSURL *url = [NSURL URLWithString:albumIconSmallUrl];
+        NSURL *urlBigImage = [NSURL URLWithString:albumIconBigUrl];
+        //try to get the bigger image if possible
+        NSData *data = [NSData dataWithContentsOfURL:urlBigImage];
+        if (data == nil) {
+            data = [NSData dataWithContentsOfURL:url];
+        }
+        [self fillEmptyGenreTile:data];
+    }
+}
+- (void) fillEmptyGenreTile: (NSData *)data {
+    //depending on the answer from Raza
+    //self.albumCoverImage.image = [[UIImage alloc] initWithData:data];
+    UIImageView *currentImageView = [genreImageViews objectAtIndex:currentImageCounter];
+    
+    currentImageView.image = [[UIImage alloc] initWithData:data];
+    currentImageView.hidden = FALSE;
+    currentImageCounter++;
+    NSLog(@"increase image counter");
+    
+}
+
 @end

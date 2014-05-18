@@ -18,6 +18,7 @@
 #import <GracenoteMusicID/GNCoverArt.h>
 #import <GracenoteMusicID/GNDescriptor.h>
 #import "DashboardViewController.h"
+#import <AFNetworking/AFHTTPRequestOperationManager.h>
 
 @interface MainViewController ()
 
@@ -29,7 +30,9 @@
 @property (nonatomic, assign) BOOL musicRequested;
 @end
 
-@implementation MainViewController
+@implementation MainViewController {
+    AFHTTPRequestOperationManager *httpManager;
+}
 
 @synthesize activityIndicator;
 
@@ -88,6 +91,20 @@
     self.artistsTotal = 0;
     self.artistsAnalyzed = 0;
     
+    [self initHTTPManager];
+}
+
+-(void) initHTTPManager {
+    httpManager = [AFHTTPRequestOperationManager manager];
+    //httpManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    AFJSONRequestSerializer *requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    [requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    
+    httpManager.requestSerializer = requestSerializer;
+    httpManager.responseSerializer = [AFJSONResponseSerializer serializer];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -386,15 +403,66 @@
 }
 
 - (void)genresEvaluationCompleted {
+    [self fetchGNRecommendations];
+
     
-    
-    
-    NSLog(@"Genres analyze completed %@", self.likedGenres);
-    //here go to next screen
-    DashboardViewController *dashVC = [[DashboardViewController alloc] init];
-    dashVC.genrePreferences = self.likedGenres;
-    [self.navigationController pushViewController:dashVC animated:YES];
+//    
+//    NSLog(@"Genres analyze completed %@", self.likedGenres);
+//    //here go to next screen
+//    DashboardViewController *dashVC = [[DashboardViewController alloc] init];
+//    dashVC.genrePreferences = self.likedGenres;
+//    [self.navigationController pushViewController:dashVC animated:YES];
 }
+
+
+- (void) fetchGNRecommendations {
+    
+    NSArray *orderedKeysArray;
+    
+    orderedKeysArray = [self.likedGenres keysSortedByValueUsingComparator: ^(id obj1, id obj2) {
+        NSMutableArray *arr1 = (NSMutableArray *)obj1;
+        NSMutableArray *arr2 = (NSMutableArray *)obj2;
+        
+        if ([[arr1 objectAtIndex:1] integerValue] < [[arr2 objectAtIndex:1] integerValue]) {
+            
+            return (NSComparisonResult)NSOrderedDescending;
+        }
+        if ([[arr1 objectAtIndex:1] integerValue] > [[arr2 objectAtIndex:1] integerValue]) {
+            
+            return (NSComparisonResult)NSOrderedAscending;
+        }
+        
+        return (NSComparisonResult)NSOrderedSame;
+    }];
+    
+    
+    NSString *SERVER_URL = @"http://damp-badlands-1259.herokuapp.com/api/v1/users";
+    NSString *GN_URL = @"https://c11493376.web.cddbp.net/webapi/json/1.0/radio/create?client=11493376-2587743DFEA005B0AC22F8C40DB8A4AB&user=263552350177047583-9A591374B87F3A53E1A77FFDA20770A8&seed=mood_65326";
+    NSDictionary *postObject = [[NSMutableDictionary alloc] init];
+    [postObject setValue:orderedKeysArray forKeyPath:@"genres"];
+    
+    [httpManager GET:GN_URL parameters:NULL
+             success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         
+         NSLog(@"JSON: %@",    [operation responseString]);
+         NSMutableDictionary *playlist = responseObject[@"RESPONSE"][0];
+         
+         
+         //  ServerResponse *serverResponse = [[ServerResponse alloc] initWithData: dict];
+         //goToDashboard
+         DashboardViewController *dashVC = [[DashboardViewController alloc] init];
+         //dashVC.currentContext = [[ServerResponse alloc] initWithData: dict];
+         dashVC.currentContext = [[ServerResponse alloc] initWithPlaylist:playlist];
+         [self.navigationController pushViewController:dashVC animated:YES];
+     }
+             failure:
+     ^(AFHTTPRequestOperation *operation, NSError *error) {
+         NSLog(@"Error: %@", error);
+     }];
+    
+}
+
 
 - (void) GNResultReady:(GNSearchResult*)result {
 	NSString *statusString = nil;
