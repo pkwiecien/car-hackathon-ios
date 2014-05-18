@@ -177,7 +177,7 @@ static int currentTrack;
 }
 
 - (IBAction)dislikeButtonPressed:(id)sender {
-    // [self fetchSong];
+    [self playNextTrack];
     [self untoggleLikeButton];
 }
 
@@ -203,6 +203,9 @@ static int currentTrack;
 }
 
 -(void)playCurrentTrack {
+    if (self.tracks == nil || [self.tracks count] == 0) {
+        return;
+    }
     Track *newTrack = [self.tracks objectAtIndex:currentTrack];
     [[[AppDelegate rdioInstance] player] playSource:newTrack.trackId];
     NSURL *url = [NSURL URLWithString:newTrack.albumUrl];
@@ -212,6 +215,9 @@ static int currentTrack;
 
 -(void)playNextTrack {
     currentTrack++;
+    if ([self.tracks count] == 0) {
+        return;
+    }
     if (currentTrack >= [self.tracks count]) {
         currentTrack = 0;
     }
