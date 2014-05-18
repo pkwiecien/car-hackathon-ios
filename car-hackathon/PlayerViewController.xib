@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PlayerViewController">
             <connections>
                 <outlet property="albumCoverImage" destination="Efa-nF-Gvd" id="YiM-tb-Al9"/>
+                <outlet property="detailsButton" destination="s0z-Md-3vP" id="LRZ-kh-JAU"/>
                 <outlet property="dislikeButton" destination="Cwe-8t-zNt" id="vIe-Od-26y"/>
                 <outlet property="likeButton" destination="anJ-EV-P8G" id="jSp-8n-cip"/>
                 <outlet property="likeButtonPressed" destination="anJ-EV-P8G" id="3Bb-3J-0bW"/>
@@ -28,29 +29,45 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="minimumTrackTintColor" red="0.81568627449999997" green="0.4941176471" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
                 </slider>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="anJ-EV-P8G">
-                    <rect key="frame" x="224" y="424" width="30" height="30"/>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="anJ-EV-P8G">
+                    <rect key="frame" x="224" y="424" width="45" height="45"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Like">
+                    <state key="normal">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="toggleLikeButton:" destination="-1" eventType="touchUpInside" id="D9x-Vq-eZo"/>
+                    </connections>
                 </button>
                 <button opaque="NO" alpha="0.74999999999999978" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V9f-et-vPg">
                     <rect key="frame" x="95" y="164" width="130" height="130"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <state key="normal" backgroundImage="PlayIcon">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="playButtonPressed:" destination="-1" eventType="touchUpInside" id="Q49-sg-hA1"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cwe-8t-zNt">
-                    <rect key="frame" x="50" y="424" width="45" height="30"/>
+                    <rect key="frame" x="51" y="427" width="40" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Dislike">
+                    <state key="normal">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
                         <action selector="dislikeButtonPressed:" destination="-1" eventType="touchUpInside" id="9Fi-Jy-LxC"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s0z-Md-3vP">
+                    <rect key="frame" x="20" y="528" width="46" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Button">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="detailsButtonPressed:" destination="-1" eventType="touchUpInside" id="VEX-6i-8b7"/>
                     </connections>
                 </button>
             </subviews>
@@ -60,6 +77,6 @@
         </view>
     </objects>
     <resources>
-        <image name="PlayIcon" width="1200" height="1200"/>
+        <image name="PlayIcon" width="600" height="600"/>
     </resources>
 </document>
