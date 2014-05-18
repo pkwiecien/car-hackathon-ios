@@ -436,12 +436,12 @@
     }];
     
     
-    NSString *SERVER_URL = @"http://damp-badlands-1259.herokuapp.com/api/v1/users";
+    NSString *SERVER_URL = @"http://lit-castle-9656.herokuapp.com/api/v1/users";
     NSString *GN_URL = @"https://c11493376.web.cddbp.net/webapi/json/1.0/radio/create?client=11493376-2587743DFEA005B0AC22F8C40DB8A4AB&user=263552350177047583-9A591374B87F3A53E1A77FFDA20770A8&seed=mood_65326";
     NSDictionary *postObject = [[NSMutableDictionary alloc] init];
     [postObject setValue:orderedKeysArray forKeyPath:@"genres"];
     
-    [httpManager GET:GN_URL parameters:NULL
+    [httpManager GET:SERVER_URL parameters:NULL
              success:^(AFHTTPRequestOperation *operation, id responseObject)
      {
          
@@ -452,8 +452,8 @@
          //  ServerResponse *serverResponse = [[ServerResponse alloc] initWithData: dict];
          //goToDashboard
          DashboardViewController *dashVC = [[DashboardViewController alloc] init];
-         //dashVC.currentContext = [[ServerResponse alloc] initWithData: dict];
-         dashVC.currentContext = [[ServerResponse alloc] initWithPlaylist:playlist];
+         dashVC.currentContext = [[ServerResponse alloc] initWithData: responseObject[@"songResult"]];
+         //dashVC.currentContext = [[ServerResponse alloc] initWithPlaylist:playlist];
          [self.navigationController pushViewController:dashVC animated:YES];
      }
              failure:

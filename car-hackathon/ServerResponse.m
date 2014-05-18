@@ -22,31 +22,26 @@
     self.tracks = [[NSMutableArray alloc] init];
     self.genres = [[NSMutableDictionary alloc] init];
     
-    for (NSDictionary *albums in responseDict[@"playlist"][@"ALBUM"]) {
+    
+    for (NSDictionary *albums in responseDict[@"playlist"][0][@"ALBUM"]) {
         NSString *artist = albums[@"ARTIST"][0][@"VALUE"];
         NSString *genre = albums[@"GENRE"][0][@"VALUE"];
         [self.genres setObject:artist forKey:genre];
-        Track* newTrack ;
         for (NSDictionary *track in albums[@"TRACK"]) {
             //for each track
+            Track* newTrack = [[Track alloc] init];
             newTrack.songTitle = track[@"TITLE"][0][@"VALUE"];
             newTrack.artist = track[@"ARTIST"][0][@"VALUE"];
             //newTrack.genre = genre;
             newTrack.album = albums[@"ALBUM"][0][@"VALUE"];
             newTrack.albumUrl = albums[@"TITLE"][0][@"VALUE"];
-            
+            if (newTrack != nil) {
+                [self.tracks addObject: newTrack];
+            }
         }
         //add newTrack to tracks
-        [self.tracks addObject:newTrack];
+        
     }
-    /*
-    for (NSDictionary *track in responseDict[@"tracks"]) {
-        [self.tracksNames addObject:track[@"name"]];
-        [self.tracksArtists addObject:track[@"artist"]];
-        [self.tracksAlbums addObject:track[@"album"]];
-        [self.genres setObject:track[@"artist"] forKey:track[@"genre"]];
-    }
-     */
     return self;
 }
 
