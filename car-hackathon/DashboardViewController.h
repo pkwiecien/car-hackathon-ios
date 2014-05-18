@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "ServerResponse.h"
-@interface DashboardViewController : UIViewController <UIGestureRecognizerDelegate>
+#import <Rdio/Rdio.h>
+
+@interface DashboardViewController : UIViewController <RDAPIRequestDelegate, UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *mainLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *mainImageView;

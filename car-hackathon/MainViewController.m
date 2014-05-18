@@ -63,7 +63,6 @@
     
     NSString* savedToken = [[Settings settings] accessToken];
     if(savedToken != nil) {
-        
         /**
          * We've got an access token so let's authorize with it so we can make API requests that require user authentication.
          */

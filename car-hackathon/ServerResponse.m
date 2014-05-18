@@ -22,6 +22,7 @@
     self.tracks = [[NSMutableArray alloc] init];
     self.genres = [[NSMutableDictionary alloc] init];
     
+    
     for (NSDictionary *albums in responseDict[@"playlist"][@"ALBUM"]) {
         NSString *artist = albums[@"ARTIST"][0][@"VALUE"];
         NSString *genre = albums[@"GENRE"][0][@"VALUE"];
