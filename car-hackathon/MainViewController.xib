@@ -6,6 +6,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController">
             <connections>
+                <outlet property="fbLoggedLabel" destination="CSO-KU-RSu" id="edo-h2-LOn"/>
+                <outlet property="iTunesButton" destination="qUe-Rc-bKB" id="p0R-9C-9XP"/>
+                <outlet property="iTunesIcon" destination="VMN-GF-EFX" id="AaE-8D-J0I"/>
+                <outlet property="musicTypesIndicator" destination="IGH-u1-ZD5" id="wdi-xR-WQ4"/>
+                <outlet property="selectExplanationTextView" destination="NhA-YZ-kem" id="91S-8E-eJB"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -61,6 +66,19 @@
                     <rect key="frame" x="65" y="476" width="28" height="28"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
+                <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="Getting your preferences from Facebook" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CSO-KU-RSu">
+                    <rect key="frame" x="92" y="402" width="200" height="54"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.1058823529" green="0.1058823529" blue="0.1058823529" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="IGH-u1-ZD5">
+                    <rect key="frame" x="47" y="410" width="37" height="37"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" red="0.10588235294117647" green="0.10588235294117647" blue="0.10588235294117647" alpha="1" colorSpace="calibratedRGB"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
