@@ -12,7 +12,7 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import <Rdio/Rdio.h>
 
-@interface PlayerViewController : UIViewController <RDAPIRequestDelegate, RDPlayerDelegate> {
+@interface PlayerViewController : UIViewController <RDAPIRequestDelegate, RDPlayerDelegate, UIGestureRecognizerDelegate> {
     SystemSoundID correctSoundID;
     SystemSoundID incorrectSoundID;
 }
@@ -24,7 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property (weak, nonatomic) IBOutlet UIButton *likeButtonPressed;
 - (IBAction)toggleLikeButton:(id)sender;
-@property (weak, nonatomic) IBOutlet UIButton *testButton;
-- (IBAction)testButtonToggled:(id)sender;
+- (IBAction)detailsButtonPressed:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *detailsButton;
 
 @end
