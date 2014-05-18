@@ -13,7 +13,7 @@
 @property (strong, nonatomic) NSString *trackId;
 @property (strong, nonatomic) NSString *artist;
 @property (strong, nonatomic) NSString *songTitle;
-@property (strong, nonatomic) NSString *genre;
+@property (strong, nonatomic) NSString *album;
 @property (strong, nonatomic) NSString *albumUrl;
 
 @end
