@@ -54,7 +54,7 @@
     self.bottomRightView.layer.cornerRadius = 4.0;
     
     genreImageViews = [[NSArray alloc] initWithObjects:self.mainImageView ,self.topLeftImageView, self.topRightImageView, self.bottomLeftImageView, self.bottomRightImageView, nil];
-    genreLabels = [[NSArray alloc] initWithObjects:self.topLeftGenreName, self.topRightGenreName, self.bottomLeftGenreName, self.bottomRightGenreName, nil];
+    genreLabels = [[NSArray alloc] initWithObjects:self.mainGenreName, self.topLeftGenreName, self.topRightGenreName, self.bottomLeftGenreName, self.bottomRightGenreName, nil];
     
     genreViews = [[NSArray alloc] initWithObjects:self.topLeftView, self.topRightView, self.bottomLeftView, self.bottomRightView, nil];
     
@@ -73,7 +73,7 @@
 }
 
 - (void) displayGenres {
-    //display the 4 genres
+    //display the fetched genres
     
     //all the genres are in self.currentContext.genres
     //for each (distinct) genre, get one artist and populate the tiles

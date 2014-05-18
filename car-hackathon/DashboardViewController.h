@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *topRightGenreName;
 @property (weak, nonatomic) IBOutlet UILabel *bottomLeftGenreName;
 @property (weak, nonatomic) IBOutlet UILabel *bottomRightGenreName;
+@property (weak, nonatomic) IBOutlet UILabel *mainGenreName;
 
 
 @property (weak, nonatomic) NSMutableDictionary *genrePreferences;
