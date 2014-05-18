@@ -254,9 +254,12 @@
     if (self.musicRequested == false ){
         [self getMusicLikes];
         self.musicTypesIndicator.hidden = FALSE;
+        
     }
     [self setupViewLoading:TRUE];
 }
+
+
 
 - (void)setupViewLoading:(BOOL) loadingData {
     self.loginView.hidden = loadingData;
@@ -280,6 +283,9 @@
                                   //// Sucess! Include your code to handle the results here
                                   //NSLog(@"user likes: %@", result);
                                   NSArray *myLikes = (NSArray*)[result data];
+                                  //after getting FB data, after 10 seconds go to next no matter what
+                                  [self performSelector:@selector(genresEvaluationCompleted)
+                                             withObject:nil afterDelay:10.0f];
                                   //NSLog(@"user likes: %@", myLikes);
                                   [self saveMusicLikes:myLikes];
                               } else {
@@ -379,7 +385,7 @@
     self.artistsAnalyzed++;
     NSLog(@"Artists analyzed %d", self.artistsAnalyzed);
     //WHEN GOT HALF OF THE GENRES, IT GOES TO NEXT SCREEN
-    if (self.artistsAnalyzed == (self.artistsAnalyzed / 2 )) {
+    if (self.artistsAnalyzed == self.artistsTotal) {
         [self genresEvaluationCompleted];
     }
 }
