@@ -98,8 +98,8 @@
     [self initHTTPManager];
     
     
-    genreValues = [NSArray arrayWithObjects: @"Alternative", @"Rock", nil];
-    genreIDs = [NSArray arrayWithObjects:@"25961", @"25964", nil];
+    genreValues = [NSArray arrayWithObjects: @"Alternative", @"Rock", @"Data & Other", @"Metal", @"Classic R&B/Soul", @"Brit Rock", @"Indie Rock", @"Western Pop",nil];
+    genreIDs = [NSArray arrayWithObjects:@"25961", @"25964", @"36064", @"36053", @"36057", @"25964", @"36052", @"36056", nil];
     genreDictionary = [NSDictionary dictionaryWithObjects:genreIDs forKeys:genreValues];
 }
 
